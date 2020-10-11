@@ -5,8 +5,8 @@ const src = path.join(__dirname, '..');
 
 async function run() {
   core.startGroup('Get Input value');
-  const license_path = path.join(src, core.getInput('path', { require: false }));
-  core.info(`license_path: ${license_path}`);
+  const username = core.getInput('user', { require: false });
+  core.info(`username: ${username}`);
   core.endGroup();
 }
 

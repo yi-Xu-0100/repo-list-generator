@@ -1,19 +1,19 @@
-name: 'License-Generator'
+name: 'Repo-List-Generator'
 author: 'yi_Xu'
-description: 'Use default template to generate license.'
+description: 'Generate repo list for user or organization'
 
 branding:
   icon: 'file-text'
   color: 'blue'
 
 inputs:
-  path:
-    description: 'Set up the path of license.'
+  user:
+    description: 'Set up the user to generate repo list.'
     required: false
-    default: LICENSE
+    default: ${{ github.actor }}
 outputs:
-  time: # output will be available to future steps
-    description: 'The message to output'
+  list:
+    description: 'Repo list'
 runs:
   using: 'node12'
   main: 'dist/index.js'

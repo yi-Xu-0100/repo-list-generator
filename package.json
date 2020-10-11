@@ -1,7 +1,7 @@
 {
-  "name": "javascript-action",
+  "name": "repo-list-generator",
   "version": "0.0.1",
-  "description": "JavaScript Action Template",
+  "description": "Generate repo list for user or organization.",
   "main": "dist/index.js",
   "scripts": {
     "lint-check": "prettier --check **/*.{js,yml,json,md} && eslint .",
@@ -26,19 +26,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yi-Xu-0100/javascript-action.git"
+    "url": "git+https://github.com/yi-Xu-0100/repo-list-generator.git"
   },
   "keywords": [
     "GitHub",
     "Actions",
-    "JavaScript"
+    "JavaScript",
+    "repo",
+    "list",
+    "generator"
   ],
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/yi-Xu-0100/javascript-action/issues"
+    "url": "https://github.com/yi-Xu-0100/repo-list-generator/issues"
   },
-  "homepage": "https://github.com/yi-Xu-0100/javascript-action#readme",
+  "homepage": "https://github.com/yi-Xu-0100/repo-list-generator#readme",
   "dependencies": {
     "@actions/core": "^1.1.1"
   },
