@@ -1,0 +1,19 @@
+name: 'License-Generator'
+author: 'yi_Xu'
+description: 'Use default template to generate license.'
+
+branding:
+  icon: 'file-text'
+  color: 'blue'
+
+inputs:
+  path:
+    description: 'Set up the path of license.'
+    required: false
+    default: LICENSE
+outputs:
+  time: # output will be available to future steps
+    description: 'The message to output'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

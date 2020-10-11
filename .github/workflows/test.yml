@@ -1,0 +1,19 @@
+name: test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2.3.3
+
+      - name: test
+        uses: ./
+        with:
+          path: LICENSE.txt
