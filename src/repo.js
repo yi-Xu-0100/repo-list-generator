@@ -11,11 +11,12 @@ let getAll = async function (page = 10) {
       var resp = await octokit.repos.listForAuthenticatedUser({ page: i, per_page: 100 });
       debug(`Request Header ${i}:`);
       debug(JSON.stringify(resp.headers));
+      repo_list = repo_list.concat(resp.data);
+      if (!resp.headers.link || resp.headers.link.match(/rel=\\"first\\"/)) break;
     } catch (err) {
-      setFailed(err.message);
+      debug(err);
+      setFailed(err);
     }
-    repo_list = repo_list.concat(resp.data);
-    if (!resp.headers.link || resp.headers.link.match(/rel=\\"first\\"/)) break;
   }
   var repo_list_name = pluck(repo_list, 'name');
   var repo_list_private = pluck(repo_list, 'private');
