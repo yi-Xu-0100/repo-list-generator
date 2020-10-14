@@ -12,6 +12,7 @@ async function run() {
   const maxPage = getInput('maxPage', { require: false });
   info(`maxPage: ${maxPage}`);
   endGroup();
+
   startGroup('Get repo list');
   var repo_list = await getAll(maxPage);
   const repos_path = join(src, 'repo-list.json');
