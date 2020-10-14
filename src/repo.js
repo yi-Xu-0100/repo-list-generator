@@ -10,10 +10,9 @@ let getAll = async function (page = 10) {
     try {
       var resp = await octokit.repos.listForAuthenticatedUser({ page: i, per_page: 100 });
     } catch (err) {
-      if (err.code === 'ECONNRESET') {
-        info('try agin');
-        resp = await octokit.repos.listForAuthenticatedUser({ page: i, per_page: 100 });
-      } else setFailed(err.message);
+      console.log(err);
+      info(err.message);
+      setFailed(err);
     }
     debug(`Request Header ${i}:`);
     debug(JSON.stringify(resp.headers));
