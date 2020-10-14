@@ -13,11 +13,37 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2.3.3
 
-      - name: test2
+      - name: Get Repo List
+        id: repo
         uses: ./
         with:
-          user: yi-Xu-0100
           my_token: ${{ secrets.REPO_TOKEN }}
 
-      - name: test
+      - name: Echo repoList
+        run: echo repoList:${{step.repo.output.repoList}}
+
+      - name: Echo repoList_ALL
+        run: echo repoList_ALL:${{step.repo.output.repoList_ALL}}
+
+      - name: Echo repoList_PRIVATE
+        run: echo repoList_PRIVATE:${{step.repo.output.repoList_PRIVATE}}
+
+      - name: Echo repoList_FORK
+        run: echo repoList_FORK:${{step.repo.output.repoList_FORK}}
+
+      - name: Echo privateList
+        run: echo privateList:${{step.repo.output.privateList}}
+
+      - name: Echo privateList_ALL
+        run: echo privateList_ALL:${{step.repo.output.privateList_ALL}}
+
+      - name: Echo forkList
+        run: echo forkList:${{step.repo.output.forkList}}
+
+      - name: Echo forkList_ALL
+        run: echo forkList_ALL:${{step.repo.output.forkList_ALL}}
+
+      - name: Fetch error
         uses: ./
+        with:
+          my_token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,4 +1,4 @@
-const { debug, info, startGroup, endGroup, getInput, setFailed } = require('@actions/core');
+const { debug, info, startGroup, endGroup, getInput } = require('@actions/core');
 const { join } = require('path');
 const { getAll, getList } = require('./repo');
 const { writeFileSync } = require('fs');
@@ -25,4 +25,4 @@ async function run() {
   endGroup();
 }
 
-run().catch(error => setFailed(error));
+run();

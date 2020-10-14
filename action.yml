@@ -16,9 +16,8 @@ inputs:
     required: false
     default: 10
   my_token:
-    description: 'Set up the token to generate repo list for user.'
-    required: false
-    default: ${{ github.token }}
+    description: 'Set up the personal access token (PAT) to generate repo list for user.'
+    required: true
 
 outputs:
   repoList:

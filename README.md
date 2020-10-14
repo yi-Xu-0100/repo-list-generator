@@ -6,3 +6,5 @@
 [![Github license](https://img.shields.io/github/license/yi-Xu-0100/repo-list-generator)](./LICENSE)
 
 The GitHub action that generate repo list for user.
+
+need: Personal access token (PAT) used to fetch the repository.
