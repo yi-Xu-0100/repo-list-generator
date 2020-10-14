@@ -5,4 +5,4 @@
 [![Github latest release](https://img.shields.io/github/v/release/yi-Xu-0100/repo-list-generator)](https://github.com/yi-Xu-0100/repo-list-generator/releases)
 [![Github license](https://img.shields.io/github/license/yi-Xu-0100/repo-list-generator)](./LICENSE)
 
-The GitHub action that generate repo list for user or organization.
+The GitHub action that generate repo list for user.

@@ -1,19 +1,42 @@
 name: 'Repo-List-Generator'
 author: 'yi_Xu'
-description: 'Generate repo list for user or organization'
+description: 'Generate repo list for user.'
 
 branding:
-  icon: 'file-text'
-  color: 'blue'
+  icon: 'list'
+  color: 'yellow'
 
 inputs:
   user:
     description: 'Set up the user to generate repo list.'
     required: false
     default: ${{ github.actor }}
+  maxPage:
+    description: 'Set up maxPage for request to generate repo list.(default 100 repo per page.)'
+    required: false
+    default: 10
+  my_token:
+    description: 'Set up the token to generate repo list for user.'
+    required: false
+    default: ${{ secrets.GITHUB_TOKEN }}
+
 outputs:
-  list:
-    description: 'Repo list'
+  repoList:
+    description: 'Repo list exclude private and fork'
+  repoList_ALL:
+    description: 'Repo list include private and fork'
+  repoList_PRIVATE:
+    description: 'Repo list include private'
+  repoList_FORK:
+    description: 'Repo list include fork'
+  privateList:
+    description: 'Private repo list exclude fork'
+  privateList_ALL:
+    description: 'Private repo list include fork'
+  forkList:
+    description: 'Fork repo list exclude private'
+  forkList_ALL:
+    description: 'Fork repo list include private'
 runs:
   using: 'node12'
   main: 'dist/index.js'
