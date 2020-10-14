@@ -9,19 +9,18 @@ let getAll = async function (page = 10) {
   for (let i = 1; i < parseInt(page); i++) {
     try {
       var resp = await octokit.repos.listForAuthenticatedUser({ page: i, per_page: 100 });
+      debug(`Request Header ${i}:`);
+      debug(JSON.stringify(resp.headers));
     } catch (err) {
-      console.log(err);
-      info(err.message);
-      setFailed(err);
+      setFailed(err.message);
     }
-    debug(`Request Header ${i}:`);
-    debug(JSON.stringify(resp.headers));
     repo_list = repo_list.concat(resp.data);
     if (!resp.headers.link || resp.headers.link.match(/rel=\\"first\\"/)) break;
   }
   var repo_list_name = pluck(repo_list, 'name');
   var repo_list_private = pluck(repo_list, 'private');
   var repo_list_fork = pluck(repo_list, 'fork');
+  info('Successfully get repo data.');
   return { repo_list: zip(repo_list_name, repo_list_private, repo_list_fork) };
 };
 
