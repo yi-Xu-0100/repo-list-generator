@@ -43,7 +43,7 @@ jobs:
       - name: Echo forkList_ALL
         run: echo forkList_ALL:${{steps.repo.outputs.forkList_ALL}}
 
-      - name: Fetch error
-        uses: ./
-        with:
-          my_token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Fetch error
+      #   uses: ./
+      #   with:
+      #     my_token: ${{ secrets.GITHUB_TOKEN }}
