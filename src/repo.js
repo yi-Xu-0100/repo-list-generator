@@ -1,5 +1,5 @@
 const { getOctokit } = require('@actions/github');
-const { debug, info, setFailed, getInput, setOutput } = require('@actions/core');
+const { debug, info, getInput, setOutput } = require('@actions/core');
 const my_token = getInput('my_token', { require: true });
 const octokit = new getOctokit(my_token);
 const { pluck, zip, unzip, reject } = require('underscore');
@@ -15,7 +15,7 @@ let getAll = async function (page = 10) {
       if (!resp.headers.link || resp.headers.link.match(/rel=\\"first\\"/)) break;
     } catch (err) {
       debug(err);
-      setFailed(err);
+      throw err;
     }
   }
   var repo_list_name = pluck(repo_list, 'name');
