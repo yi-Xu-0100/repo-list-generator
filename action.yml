@@ -21,21 +21,29 @@ inputs:
 
 outputs:
   repoList:
-    description: 'Repository list exclude private and fork'
+    description: >
+      Repository list exclude private and fork
+      Source without private(Public) and no fork
   repoList_ALL:
-    description: 'Repository list include private and fork'
+    description: >
+      Repository list include private and fork
+      Source and fork
   repoList_PRIVATE:
-    description: 'Repository list include private'
+    description: >
+      Repository list include private
+      Source and no fork
   repoList_FORK:
-    description: 'Repository list include fork'
+    description: >
+      Repository list include fork
+      Source without private(Public) and fork
   privateList:
-    description: 'Private repository list exclude fork'
-  privateList_ALL:
-    description: 'Private repository list include fork'
+    description: >
+      Private repository list
+      Only private(fork can not be private)
   forkList:
-    description: 'Fork repository list exclude private'
-  forkList_ALL:
-    description: 'Fork repository list include private'
+    description: >
+      Fork repository list
+      Only fork(private can not be fork)
 
 runs:
   using: 'node12'

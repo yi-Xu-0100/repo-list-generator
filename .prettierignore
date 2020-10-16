@@ -1,5 +1,4 @@
 dist/
 node_modules/
 .vscode/
-repo-list.json
-repo-name.json
+.repo_list/
