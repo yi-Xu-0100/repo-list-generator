@@ -7,7 +7,7 @@
     "lint-check": "prettier --check **/*.{js,yml,json,md} && eslint .",
     "format": "prettier --write **/*.{js,yml,json,md} && eslint .",
     "clear": "rimraf -rf dist/*",
-    "build": "npm run clear && ncc build src/index.js --source-map --minify  --license license.txt",
+    "build": "npm run clear && ncc build src/index.js --source-map --license license.txt",
     "dry-test": "node --require dotenv/config dist/index.js",
     "test": "npm run build && npm run dry-test"
   },

@@ -6,7 +6,7 @@ const { pluck, zip, unzip, reject } = require('underscore');
 const { join } = require('path');
 const { writeFileSync } = require('fs');
 
-let getAll = async function (page = 10) {
+let getAll = async function (user, page = 10) {
   var repo_list = [];
   for (let i = 1; i < parseInt(page); i++) {
     try {
@@ -20,14 +20,10 @@ let getAll = async function (page = 10) {
       throw err;
     }
   }
-
-  debug(`repo-info: ${join(__dirname, '../.repo_list/repo-info.json')}`);
-  writeFileSync(
-    join(__dirname, '../.repo_list/repo-info.json'),
-    JSON.stringify(repo_list, null, 2),
-    'utf-8'
-  );
-
+  var repo_info = join('.repo_list', 'repo-info.json');
+  debug(`repo-info: ${repo_info}`);
+  writeFileSync(repo_info, JSON.stringify(repo_list, null, 2), 'utf-8');
+  repo_list = reject(repo_list, item => item.owner.login != user);
   var repo_list_name = pluck(repo_list, 'name');
   var repo_list_private = pluck(repo_list, 'private');
   var repo_list_fork = pluck(repo_list, 'fork');
@@ -39,7 +35,6 @@ let getList = async function (repo_list) {
   debug(`repo_list:`);
   debug(JSON.stringify(repo_list));
   var repos = repo_list.repo_list;
-  const repos_name_ALL = unzip(repos)[0];
 
   const repoList = unzip(reject(repos, item => item[1] || item[2]))[0];
   debug(`repoList[${repoList.length}]: ${repoList.toString()}`);
@@ -65,7 +60,6 @@ let getList = async function (repo_list) {
   debug(`forkList[${forkList.length}]: ${forkList.toString()}`);
   setOutput('forkList', forkList.toString());
 
-  info(`[Info]: repos_name_ALL ${repos_name_ALL.length}`);
   info(`[Info]: repoList ${repoList.length}`);
   info(`[Info]: repoList_ALL ${repoList_ALL.length}`);
   info(`[Info]: repoList_PRIVATE ${repoList_PRIVATE.length}`);

@@ -1,6 +1,6 @@
 name: 'Repo-List-Generator'
 author: 'yi_Xu'
-description: 'Generate repo list for user.'
+description: 'Generate repo list for user or organization.'
 
 branding:
   icon: 'list'
@@ -8,15 +8,20 @@ branding:
 
 inputs:
   user:
-    description: 'Set up the user to generate repository list.'
+    description: >
+      Set up the name to generate repository list.
+      It can be user or organization.
     required: false
     default: ${{ github.actor }}
   maxPage:
-    description: 'Set up maxPage for request to generate repository list.(default 100 repository per page.)'
+    description: >
+      Set up maxPage for request to generate repository list.
+      Default 100 repository per page.
     required: false
     default: 10
   my_token:
-    description: 'Set up the personal access token (PAT) to generate repository list for user.'
+    description: >
+      Set up the personal access token (PAT) to generate repository list for user or organization.
     required: true
 
 outputs:
