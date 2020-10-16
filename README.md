@@ -6,9 +6,9 @@
 [![Github latest release](https://img.shields.io/github/v/release/yi-Xu-0100/repo-list-generator)](https://github.com/yi-Xu-0100/repo-list-generator/releases)
 [![Github license](https://img.shields.io/github/license/yi-Xu-0100/repo-list-generator)](./LICENSE)
 
-The GitHub action that generate repository list for user.
+The GitHub action that generate repo list for user or organization.
 
-**The personal access token (PAT) used to fetch the repository. Guide in [here](#-generate-my_token).**
+**The personal access token (PAT) used to fetch the repository list. Guide in [here](#-generate-my_token).**
 
 ## 🎨 Table of Contents
 
@@ -26,15 +26,20 @@ The GitHub action that generate repository list for user.
 ```yml
 inputs:
   user:
-    description: 'Set up the user to generate repository list.'
+    description: >
+      Set up the name to generate repository list.
+      It can be user or organization.
     required: false
     default: ${{ github.actor }}
   maxPage:
-    description: 'Set up maxPage for request to generate repository list.(default 100 repository per page.)'
+    description: >
+      Set up maxPage for request to generate repository list.
+      Default 100 repository per page.
     required: false
     default: 10
   my_token:
-    description: 'Set up the personal access token (PAT) to generate repository list for user.'
+    description: >
+      Set up the personal access token (PAT) to generate repository list for user or organization.
     required: true
 
 outputs:
@@ -66,12 +71,12 @@ outputs:
 
 ## 📝 Example
 
-This example use `REPO_TOKEN` to fetch repository list. The Guide to generate in [here](#-generate-my_token).
+**This example use `REPO_TOKEN` to fetch repository list. The Guide to generate in [here](#-generate-my_token).**
 
 ```yml
 - name: Get Repo List
   id: repo
-  uses: yi-Xu-0100/repo-list-generator@v0.0.2
+  uses: yi-Xu-0100/repo-list-generator@v0.1.0
   with:
     my_token: ${{ secrets.REPO_TOKEN }}
 
@@ -85,7 +90,7 @@ This example use `REPO_TOKEN` to fetch repository list. The Guide to generate in
     echo forkList:${{steps.repo.outputs.forkList}}
 ```
 
-**More Related Usage: This action result can be used in `static_list` generating. The follow are Examples.**
+**More Related Usage: This action result can be used in `static_list` generating.**
 
 - [yi-Xu-0100/hub-mirror](https://github.com/yi-Xu-0100/hub-mirror) use [Yikun/hub-mirror-action](https://github.com/Yikun/hub-mirror-action) to synchronize `GitHub` repositories to `Gitee`.
 - [yi-Xu-0100/traffic-to-badge](https://github.com/yi-Xu-0100/traffic-to-badge) use repositories `Insights/traffic` data to generate badges that include views and clones.

@@ -1,7 +1,7 @@
 {
   "name": "repo-list-generator",
-  "version": "0.0.3",
-  "description": "Generate repo list for user.",
+  "version": "0.1.0",
+  "description": "Generate repo list for user or organization.",
   "main": "dist/index.js",
   "scripts": {
     "lint-check": "prettier --check **/*.{js,yml,json,md} && eslint .",
