@@ -16,6 +16,7 @@ The GitHub action that generate repository list for user.
 - [🎨 Table of Contents](#-table-of-contents)
 - [🚀 Configuration](#-configuration)
 - [📝 Example](#-example)
+- [📝 Use dependabot to keep action up-to-date](#-use-dependabot-to-keep-action-up-to-date)
 - [🙈 Generate `my_token`](#-generate-my_token)
 - [🔊 CHANGELOG](#-changelog)
 - [📄 LICENSE](#-license)
@@ -65,14 +66,42 @@ outputs:
 
 ## 📝 Example
 
-This example use `REPO_TOKEN` to fetch repository list. The Guide in [here](#-generate-my_token).
+This example use `REPO_TOKEN` to fetch repository list. The Guide to generate in [here](#-generate-my_token).
 
 ```yml
 - name: Get Repo List
   id: repo
-  uses: ./
+  uses: yi-Xu-0100/repo-list-generator@v0.0.2
   with:
     my_token: ${{ secrets.REPO_TOKEN }}
+
+- name: Echo Output
+  run: |
+    echo repoList:${{steps.repo.outputs.repoList}}
+    echo repoList_ALL:${{steps.repo.outputs.repoList_ALL}}
+    echo repoList_PRIVATE:${{steps.repo.outputs.repoList_PRIVATE}}
+    echo repoList_FORK:${{steps.repo.outputs.repoList_FORK}}
+    echo privateList:${{steps.repo.outputs.privateList}}
+    echo forkList:${{steps.repo.outputs.forkList}}
+```
+
+**More Related Usage: This action result can be used in `static_list` generating. The follow are Examples.**
+
+- [yi-Xu-0100/hub-mirror](https://github.com/yi-Xu-0100/hub-mirror) use [Yikun/hub-mirror-action](https://github.com/Yikun/hub-mirror-action) to synchronize `GitHub` repositories to `Gitee`.
+- [yi-Xu-0100/traffic-to-badge](https://github.com/yi-Xu-0100/traffic-to-badge) use repositories `Insights/traffic` data to generate badges that include views and clones.
+
+## 📝 Use dependabot to keep action up-to-date
+
+This file is build in [`./github/dependabot.yml`](./.github/dependabot.yml) to keep action up-to-date.
+
+```yaml
+version: 2
+updates:
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'daily'
 ```
 
 ## 🙈 Generate `my_token`

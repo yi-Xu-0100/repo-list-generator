@@ -19,20 +19,11 @@ jobs:
         with:
           my_token: ${{ secrets.REPO_TOKEN }}
 
-      - name: Echo repoList
-        run: echo repoList:${{steps.repo.outputs.repoList}}
-
-      - name: Echo repoList_ALL
-        run: echo repoList_ALL:${{steps.repo.outputs.repoList_ALL}}
-
-      - name: Echo repoList_PRIVATE
-        run: echo repoList_PRIVATE:${{steps.repo.outputs.repoList_PRIVATE}}
-
-      - name: Echo repoList_FORK
-        run: echo repoList_FORK:${{steps.repo.outputs.repoList_FORK}}
-
-      - name: Echo privateList
-        run: echo privateList:${{steps.repo.outputs.privateList}}
-
-      - name: Echo forkList
-        run: echo forkList:${{steps.repo.outputs.forkList}}
+      - name: Echo Output
+        run: |
+          echo repoList:${{steps.repo.outputs.repoList}}
+          echo repoList_ALL:${{steps.repo.outputs.repoList_ALL}}
+          echo repoList_PRIVATE:${{steps.repo.outputs.repoList_PRIVATE}}
+          echo repoList_FORK:${{steps.repo.outputs.repoList_FORK}}
+          echo privateList:${{steps.repo.outputs.privateList}}
+          echo forkList:${{steps.repo.outputs.forkList}}

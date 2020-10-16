@@ -13,13 +13,17 @@ The emoji used in the `GitHub` commit message is based on [gitmoji](https://gitm
 
 ### ♻️ Changed
 
-- 🔥 Delete `privateList_ALL` and `forkList_ALL` for output.
-- 🔥 Delete repo sync2gitee workflow.
-- 📝 Update data save to `${{ github.workspace }}/.repo_list`.
-
 ### 🐛 Fixed
 
 ### 🔒 Security
+
+## [0.0.3] -2020-10-16
+
+### ♻️ Changed
+
+- 🔥 Delete `privateList_ALL` and `forkList_ALL` for output.
+- 🔥 Delete repo sync2gitee workflow.
+- 📝 Update repo data save to `${{ github.workspace }}/.repo_list`.
 
 ## [0.0.2] - 2020-10-14
 
@@ -33,6 +37,7 @@ The emoji used in the `GitHub` commit message is based on [gitmoji](https://gitm
 
 - 🎉 first publish.
 
-[unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.0.2...HEAD
+[unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.0.3...HEAD
+[0.0.3]: https://github.com/mindsers/changelog-reader-action/compare/v0.1.0
 [0.0.2]: https://github.com/mindsers/changelog-reader-action/compare/v0.0.2
 [0.0.1]: https://github.com/mindsers/changelog-reader-action/compare/v0.0.1
