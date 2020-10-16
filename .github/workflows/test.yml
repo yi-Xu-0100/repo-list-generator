@@ -7,7 +7,7 @@ on:
 
 jobs:
   run:
-    name: test
+    name: Repo list generator
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -34,16 +34,5 @@ jobs:
       - name: Echo privateList
         run: echo privateList:${{steps.repo.outputs.privateList}}
 
-      - name: Echo privateList_ALL
-        run: echo privateList_ALL:${{steps.repo.outputs.privateList_ALL}}
-
       - name: Echo forkList
         run: echo forkList:${{steps.repo.outputs.forkList}}
-
-      - name: Echo forkList_ALL
-        run: echo forkList_ALL:${{steps.repo.outputs.forkList_ALL}}
-
-      # - name: Fetch error
-      #   uses: ./
-      #   with:
-      #     my_token: ${{ secrets.GITHUB_TOKEN }}
