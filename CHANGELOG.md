@@ -13,6 +13,10 @@ The emoji used in the `GitHub` commit message is based on [gitmoji](https://gitm
 
 ### ♻️ Changed
 
+- 🔥 Delete `privateList_ALL` and `forkList_ALL` for output.
+- 🔥 Delete repo sync2gitee workflow.
+- 📝 Update data save to `${{ github.workspace }}/.repo_list`.
+
 ### 🐛 Fixed
 
 ### 🔒 Security
