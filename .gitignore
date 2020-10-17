@@ -1,4 +1,4 @@
 node_modules/
 .vscode/
-repo_list/
+.repo_list/
 .env
