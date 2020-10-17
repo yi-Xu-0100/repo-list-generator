@@ -7762,6 +7762,7 @@ async function run() {
     writeFileSync(list_path, JSON.stringify(repo_name, null, 2), 'utf-8');
     endGroup();
   } catch (error) {
+    debug(`error[run]: ${error}`);
     setFailed(error);
   }
 }
@@ -7786,14 +7787,14 @@ let getAll = async function (user, page = 10) {
   var repo_list = [];
   for (let i = 1; i < parseInt(page); i++) {
     try {
-      var resp = await octokit.repos.listForAuthenticatedUser({ page: i, per_page: 100 });
+      let resp = await octokit.repos.listForAuthenticatedUser({ page: i, per_page: 100 });
       debug(`Request Header ${i}:`);
       debug(JSON.stringify(resp.headers));
-      repo_list = repo_list.concat(resp.data);
+      repo_list.push.apply(repo_list, resp.data);
       if (!resp.headers.link || resp.headers.link.match(/rel=\\"first\\"/)) break;
-    } catch (err) {
-      debug(err);
-      throw err;
+    } catch (error) {
+      debug(`error[getAll]: ${error}`);
+      throw error;
     }
   }
   var repo_info = join('.repo_list', 'repo-info.json');
@@ -7828,11 +7829,11 @@ let getList = async function (repo_list) {
   debug(`repoList_FORK[${repoList_FORK.length}]: ${repoList_FORK.toString()}`);
   setOutput('repoList_FORK', repoList_FORK.toString());
 
-  const privateList = unzip(reject(repos, item => !item[1] || item[2]))[0];
+  const privateList = unzip(reject(repos, item => !item[1]))[0];
   debug(`privateList[${privateList.length}]: ${privateList.toString()}`);
   setOutput('privateList', privateList.toString());
 
-  const forkList = unzip(reject(repos, item => !item[2] || item[1]))[0];
+  const forkList = unzip(reject(repos, item => !item[2]))[0];
   debug(`forkList[${forkList.length}]: ${forkList.toString()}`);
   setOutput('forkList', forkList.toString());
 
@@ -7840,8 +7841,8 @@ let getList = async function (repo_list) {
   info(`[Info]: repoList_ALL ${repoList_ALL.length}`);
   info(`[Info]: repoList_PRIVATE ${repoList_PRIVATE.length}`);
   info(`[Info]: repoList_FORK ${repoList_FORK.length}`);
-  info(`[Info]: privateList ${repoList_PRIVATE.length}`);
-  info(`[Info]: forkList ${repoList_FORK.length}`);
+  info(`[Info]: privateList ${privateList.length}`);
+  info(`[Info]: forkList ${forkList.length}`);
   return {
     repoList: repoList,
     repoList_ALL: repoList_ALL,

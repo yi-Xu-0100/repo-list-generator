@@ -26,6 +26,7 @@ async function run() {
     writeFileSync(list_path, JSON.stringify(repo_name, null, 2), 'utf-8');
     endGroup();
   } catch (error) {
+    debug(`error[run]: ${error}`);
     setFailed(error);
   }
 }
