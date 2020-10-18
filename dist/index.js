@@ -14374,10 +14374,12 @@ async function run() {
       startGroup('Upload repo list debug artifact');
       const artifactClient = artifact.create();
       const artifactName = `repos-${user}`;
-      if (!existsSync(join('..', repo_list_cache))) debug('found!');
-      if (!existsSync(repo_list_cache)) throw Error('Not found!');
-      const files = ['repo-info.json', 'repo-list.json', 'repo-name.json'];
-      const rootDirectory = './.repo_list/';
+      const files = [
+        '.repo_list/repo-info.json',
+        '.repo_list/repo-list.json',
+        '.repo_list/repo-name.json'
+      ];
+      const rootDirectory = '.repo_list/';
       const options = {
         retentionDays: 1
       };
