@@ -7776,11 +7776,6 @@ async function run() {
             'If debug option set to be true, it will be Error!'
         );
     }
-    warning(
-      `The cache directory(${repo_list_cache}) is occupied! ` +
-        '\n' +
-        'If debug option set to be true, it will be Error!'
-    );
     endGroup();
 
     startGroup('Get repo list');
