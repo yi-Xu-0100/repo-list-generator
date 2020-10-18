@@ -8,6 +8,8 @@ const {
   warning,
   isDebug
 } = require('@actions/core');
+const { rmRF } = require('@actions/io');
+const artifact = require('@actions/artifact');
 const { join } = require('path');
 const { getAll, getList } = require('./repo');
 const { writeFileSync, existsSync, mkdirSync } = require('fs');
@@ -46,6 +48,21 @@ async function run() {
     var repo_name = await getList(repo_list);
     if (isDebug()) writeFileSync(list_path, JSON.stringify(repo_name, null, 2), 'utf-8');
     endGroup();
+    if (isDebug()) {
+      startGroup('Upload repo list debug artifact');
+      const artifactClient = artifact.create();
+      const artifactName = `repos-${user}`;
+      const files = ['repo-info.json', 'repo-list.json', 'repo-name.json'];
+      const rootDirectory = './.repo_list/';
+      const options = {
+        continueOnError: true,
+        retentionDays: 1
+      };
+
+      await artifactClient.uploadArtifact(artifactName, files, rootDirectory, options);
+      await rmRF(repo_list_cache);
+      endGroup();
+    }
     info('[INFO]: Action successfully completed');
   } catch (error) {
     debug(`Error[run]: ${error}`);
