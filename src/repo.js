@@ -27,7 +27,7 @@ let getAll = async function (user, page = 10) {
   var repo_list_name = pluck(repo_list, 'name');
   var repo_list_private = pluck(repo_list, 'private');
   var repo_list_fork = pluck(repo_list, 'fork');
-  info('[Info]: Successfully get repo data.');
+  info('[INFO]: Successfully get repo data');
   return { repo_list: zip(repo_list_name, repo_list_private, repo_list_fork) };
 };
 
@@ -60,12 +60,12 @@ let getList = async function (repo_list) {
   debug(`forkList[${forkList.length}]: ${forkList.toString()}`);
   setOutput('forkList', forkList.toString());
 
-  info(`[Info]: repoList ${repoList.length}`);
-  info(`[Info]: repoList_ALL ${repoList_ALL.length}`);
-  info(`[Info]: repoList_PRIVATE ${repoList_PRIVATE.length}`);
-  info(`[Info]: repoList_FORK ${repoList_FORK.length}`);
-  info(`[Info]: privateList ${privateList.length}`);
-  info(`[Info]: forkList ${forkList.length}`);
+  info(`[INFO]: repoList ${repoList.length}`);
+  info(`[INFO]: repoList_ALL ${repoList_ALL.length}`);
+  info(`[INFO]: repoList_PRIVATE ${repoList_PRIVATE.length}`);
+  info(`[INFO]: repoList_FORK ${repoList_FORK.length}`);
+  info(`[INFO]: privateList ${privateList.length}`);
+  info(`[INFO]: forkList ${forkList.length}`);
   return {
     repoList: repoList,
     repoList_ALL: repoList_ALL,

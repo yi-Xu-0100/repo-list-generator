@@ -7749,6 +7749,7 @@ const { getAll, getList } = __webpack_require__(264);
 const { writeFileSync, existsSync, mkdirSync } = __webpack_require__(747);
 
 async function run() {
+  info('[INFO]: Usage https://github.com/yi-Xu-0100/repo-list-generator#readme');
   var repo_list_cache = '.repo_list';
   debug(`repo_list_cache: ${repo_list_cache}`);
   var repos_path = join(repo_list_cache, 'repo-list.json');
@@ -7758,10 +7759,10 @@ async function run() {
   try {
     startGroup('Get input value');
     const user = getInput('user', { require: false });
-    info(`[Info]: user: ${user}`);
+    info(`[INFO]: user: ${user}`);
     const maxPage = getInput('maxPage', { require: false });
-    info(`[Info]: maxPage: ${maxPage}`);
-    info(`[Info]: isDebug: ${isDebug()}`);
+    info(`[INFO]: maxPage: ${maxPage}`);
+    info(`[INFO]: isDebug: ${isDebug()}`);
     if (!existsSync(repo_list_cache)) {
       if (isDebug()) mkdirSync(repo_list_cache);
     } else {
@@ -7781,6 +7782,7 @@ async function run() {
     var repo_name = await getList(repo_list);
     if (isDebug()) writeFileSync(list_path, JSON.stringify(repo_name, null, 2), 'utf-8');
     endGroup();
+    info('[INFO]: Action successfully completed');
   } catch (error) {
     debug(`Error[run]: ${error}`);
     setFailed(error.message);
@@ -7824,7 +7826,7 @@ let getAll = async function (user, page = 10) {
   var repo_list_name = pluck(repo_list, 'name');
   var repo_list_private = pluck(repo_list, 'private');
   var repo_list_fork = pluck(repo_list, 'fork');
-  info('[Info]: Successfully get repo data.');
+  info('[INFO]: Successfully get repo data');
   return { repo_list: zip(repo_list_name, repo_list_private, repo_list_fork) };
 };
 
@@ -7857,12 +7859,12 @@ let getList = async function (repo_list) {
   debug(`forkList[${forkList.length}]: ${forkList.toString()}`);
   setOutput('forkList', forkList.toString());
 
-  info(`[Info]: repoList ${repoList.length}`);
-  info(`[Info]: repoList_ALL ${repoList_ALL.length}`);
-  info(`[Info]: repoList_PRIVATE ${repoList_PRIVATE.length}`);
-  info(`[Info]: repoList_FORK ${repoList_FORK.length}`);
-  info(`[Info]: privateList ${privateList.length}`);
-  info(`[Info]: forkList ${forkList.length}`);
+  info(`[INFO]: repoList ${repoList.length}`);
+  info(`[INFO]: repoList_ALL ${repoList_ALL.length}`);
+  info(`[INFO]: repoList_PRIVATE ${repoList_PRIVATE.length}`);
+  info(`[INFO]: repoList_FORK ${repoList_FORK.length}`);
+  info(`[INFO]: privateList ${privateList.length}`);
+  info(`[INFO]: forkList ${forkList.length}`);
   return {
     repoList: repoList,
     repoList_ALL: repoList_ALL,

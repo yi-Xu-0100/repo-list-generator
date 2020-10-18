@@ -13,6 +13,7 @@ const { getAll, getList } = require('./repo');
 const { writeFileSync, existsSync, mkdirSync } = require('fs');
 
 async function run() {
+  info('[INFO]: Usage https://github.com/yi-Xu-0100/repo-list-generator#readme');
   var repo_list_cache = '.repo_list';
   debug(`repo_list_cache: ${repo_list_cache}`);
   var repos_path = join(repo_list_cache, 'repo-list.json');
@@ -22,10 +23,10 @@ async function run() {
   try {
     startGroup('Get input value');
     const user = getInput('user', { require: false });
-    info(`[Info]: user: ${user}`);
+    info(`[INFO]: user: ${user}`);
     const maxPage = getInput('maxPage', { require: false });
-    info(`[Info]: maxPage: ${maxPage}`);
-    info(`[Info]: isDebug: ${isDebug()}`);
+    info(`[INFO]: maxPage: ${maxPage}`);
+    info(`[INFO]: isDebug: ${isDebug()}`);
     if (!existsSync(repo_list_cache)) {
       if (isDebug()) mkdirSync(repo_list_cache);
     } else {
@@ -45,6 +46,7 @@ async function run() {
     var repo_name = await getList(repo_list);
     if (isDebug()) writeFileSync(list_path, JSON.stringify(repo_name, null, 2), 'utf-8');
     endGroup();
+    info('[INFO]: Action successfully completed');
   } catch (error) {
     debug(`Error[run]: ${error}`);
     setFailed(error.message);
