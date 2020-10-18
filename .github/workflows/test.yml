@@ -21,6 +21,7 @@ jobs:
 
       - name: Echo Output for user
         run: |
+          echo repo:${{steps.repo.outputs.repo}}
           echo repoList:${{steps.repo.outputs.repoList}}
           echo repoList_ALL:${{steps.repo.outputs.repoList_ALL}}
           echo repoList_PRIVATE:${{steps.repo.outputs.repoList_PRIVATE}}
@@ -37,6 +38,7 @@ jobs:
 
       - name: Echo Output for organization
         run: |
+          echo repo:${{steps.repo1.outputs.repo}}
           echo repoList:${{steps.repo1.outputs.repoList}}
           echo repoList_ALL:${{steps.repo1.outputs.repoList_ALL}}
           echo repoList_PRIVATE:${{steps.repo1.outputs.repoList_PRIVATE}}

@@ -43,6 +43,9 @@ inputs:
     required: true
 
 outputs:
+  repo:
+    description: >
+      Current repository name
   repoList:
     description: >
       Repository list exclude private and fork
@@ -82,12 +85,13 @@ outputs:
 
 - name: Echo Output
   run: |
-    echo repoList:${{steps.repo.outputs.repoList}}
-    echo repoList_ALL:${{steps.repo.outputs.repoList_ALL}}
-    echo repoList_PRIVATE:${{steps.repo.outputs.repoList_PRIVATE}}
-    echo repoList_FORK:${{steps.repo.outputs.repoList_FORK}}
-    echo privateList:${{steps.repo.outputs.privateList}}
-    echo forkList:${{steps.repo.outputs.forkList}}
+    echo repo: ${{steps.repo.outputs.repo}}
+    echo repoList: ${{steps.repo.outputs.repoList}}
+    echo repoList_ALL: ${{steps.repo.outputs.repoList_ALL}}
+    echo repoList_PRIVATE: ${{steps.repo.outputs.repoList_PRIVATE}}
+    echo repoList_FORK: ${{steps.repo.outputs.repoList_FORK}}
+    echo privateList: ${{steps.repo.outputs.privateList}}
+    echo forkList: ${{steps.repo.outputs.forkList}}
 ```
 
 **More Related Usage: This action result can be used in `static_list` generating.**

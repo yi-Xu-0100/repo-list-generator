@@ -1,4 +1,4 @@
-const { getOctokit } = require('@actions/github');
+const { context, getOctokit } = require('@actions/github');
 const { debug, info, getInput, setOutput, isDebug } = require('@actions/core');
 const my_token = getInput('my_token', { require: true });
 const octokit = new getOctokit(my_token);
@@ -60,6 +60,8 @@ let getList = async function (repo_list) {
   debug(`forkList[${forkList.length}]: ${forkList.toString()}`);
   setOutput('forkList', forkList.toString());
 
+  setOutput('repo', context.repo.repo);
+  info(`[INFO]: repo: ${context.repo.repo}`);
   info(`[INFO]: repoList ${repoList.length}`);
   info(`[INFO]: repoList_ALL ${repoList_ALL.length}`);
   info(`[INFO]: repoList_PRIVATE ${repoList_PRIVATE.length}`);

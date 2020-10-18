@@ -13,6 +13,7 @@ The emoji used in the `GitHub` commit message is based on [gitmoji](https://gitm
 
 - ✨ Fit debug option for save repo information.(default false)
 - ✨ Use artifact option to upload repo information in debug mode.
+- ✨ Add current repo name to output(repo).
 
 ### ♻️ Changed
 

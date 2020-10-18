@@ -14403,7 +14403,7 @@ run();
 /***/ 4264:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-const { getOctokit } = __webpack_require__(5438);
+const { context, getOctokit } = __webpack_require__(5438);
 const { debug, info, getInput, setOutput, isDebug } = __webpack_require__(2186);
 const my_token = getInput('my_token', { require: true });
 const octokit = new getOctokit(my_token);
@@ -14465,6 +14465,8 @@ let getList = async function (repo_list) {
   debug(`forkList[${forkList.length}]: ${forkList.toString()}`);
   setOutput('forkList', forkList.toString());
 
+  setOutput('repo', context.repo.repo);
+  info(`[INFO]: repo: ${context.repo.repo}`);
   info(`[INFO]: repoList ${repoList.length}`);
   info(`[INFO]: repoList_ALL ${repoList_ALL.length}`);
   info(`[INFO]: repoList_PRIVATE ${repoList_PRIVATE.length}`);

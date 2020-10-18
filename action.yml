@@ -25,6 +25,9 @@ inputs:
     required: true
 
 outputs:
+  repo:
+    description: >
+      Current repository name
   repoList:
     description: >
       Repository list exclude private and fork
