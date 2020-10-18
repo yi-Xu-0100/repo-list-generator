@@ -7741,7 +7741,8 @@ const {
   endGroup,
   getInput,
   setFailed,
-  warning
+  warning,
+  isDebug
 } = __webpack_require__(186);
 const { join } = __webpack_require__(622);
 const { getAll, getList } = __webpack_require__(264);
@@ -7760,15 +7761,11 @@ async function run() {
     info(`[Info]: user: ${user}`);
     const maxPage = getInput('maxPage', { require: false });
     info(`[Info]: maxPage: ${maxPage}`);
-    const _isDebug = getInput('debug', { require: false });
-    if (_isDebug.toLowerCase() === 'true') var isDebug = true;
-    else if (_isDebug.toLowerCase() === 'false') isDebug = false;
-    else throw Error(`The debug option only can be set to be true or false`);
-    info(`[Info]: isDebug: ${isDebug}`);
+    info(`[Info]: isDebug: ${isDebug()}`);
     if (!existsSync(repo_list_cache)) {
-      if (isDebug) mkdirSync(repo_list_cache);
+      if (isDebug()) mkdirSync(repo_list_cache);
     } else {
-      if (isDebug) throw Error(`The cache directory(${repo_list_cache}) is occupied!`);
+      if (isDebug()) throw Error(`The cache directory(${repo_list_cache}) is occupied!`);
       else
         warning(
           `The cache directory(${repo_list_cache}) is occupied! ` +
@@ -7779,10 +7776,10 @@ async function run() {
     endGroup();
 
     startGroup('Get repo list');
-    var repo_list = await getAll(user, maxPage, isDebug);
-    if (isDebug) writeFileSync(repos_path, JSON.stringify(repo_list, null, 2), 'utf-8');
+    var repo_list = await getAll(user, maxPage);
+    if (isDebug()) writeFileSync(repos_path, JSON.stringify(repo_list, null, 2), 'utf-8');
     var repo_name = await getList(repo_list);
-    if (isDebug) writeFileSync(list_path, JSON.stringify(repo_name, null, 2), 'utf-8');
+    if (isDebug()) writeFileSync(list_path, JSON.stringify(repo_name, null, 2), 'utf-8');
     endGroup();
   } catch (error) {
     debug(`Error[run]: ${error}`);
@@ -7799,14 +7796,14 @@ run();
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 const { getOctokit } = __webpack_require__(438);
-const { debug, info, getInput, setOutput } = __webpack_require__(186);
+const { debug, info, getInput, setOutput, isDebug } = __webpack_require__(186);
 const my_token = getInput('my_token', { require: true });
 const octokit = new getOctokit(my_token);
 const { pluck, zip, unzip, reject } = __webpack_require__(987);
 const { join } = __webpack_require__(622);
 const { writeFileSync } = __webpack_require__(747);
 
-let getAll = async function (user, page = 10, isDebug = false) {
+let getAll = async function (user, page = 10) {
   var repo_list = [];
   for (let i = 1; i < parseInt(page); i++) {
     try {
@@ -7822,7 +7819,7 @@ let getAll = async function (user, page = 10, isDebug = false) {
   }
   var repo_info = join('.repo_list', 'repo-info.json');
   debug(`repo-info: ${repo_info}`);
-  if (isDebug) writeFileSync(repo_info, JSON.stringify(repo_list, null, 2), 'utf-8');
+  if (isDebug()) writeFileSync(repo_info, JSON.stringify(repo_list, null, 2), 'utf-8');
   repo_list = reject(repo_list, item => item.owner.login != user);
   var repo_list_name = pluck(repo_list, 'name');
   var repo_list_private = pluck(repo_list, 'private');

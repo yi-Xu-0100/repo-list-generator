@@ -5,7 +5,8 @@ const {
   endGroup,
   getInput,
   setFailed,
-  warning
+  warning,
+  isDebug
 } = require('@actions/core');
 const { join } = require('path');
 const { getAll, getList } = require('./repo');
@@ -24,15 +25,11 @@ async function run() {
     info(`[Info]: user: ${user}`);
     const maxPage = getInput('maxPage', { require: false });
     info(`[Info]: maxPage: ${maxPage}`);
-    const _isDebug = getInput('debug', { require: false });
-    if (_isDebug.toLowerCase() === 'true') var isDebug = true;
-    else if (_isDebug.toLowerCase() === 'false') isDebug = false;
-    else throw Error(`The debug option only can be set to be true or false`);
-    info(`[Info]: isDebug: ${isDebug}`);
+    info(`[Info]: isDebug: ${isDebug()}`);
     if (!existsSync(repo_list_cache)) {
-      if (isDebug) mkdirSync(repo_list_cache);
+      if (isDebug()) mkdirSync(repo_list_cache);
     } else {
-      if (isDebug) throw Error(`The cache directory(${repo_list_cache}) is occupied!`);
+      if (isDebug()) throw Error(`The cache directory(${repo_list_cache}) is occupied!`);
       else
         warning(
           `The cache directory(${repo_list_cache}) is occupied! ` +
@@ -43,10 +40,10 @@ async function run() {
     endGroup();
 
     startGroup('Get repo list');
-    var repo_list = await getAll(user, maxPage, isDebug);
-    if (isDebug) writeFileSync(repos_path, JSON.stringify(repo_list, null, 2), 'utf-8');
+    var repo_list = await getAll(user, maxPage);
+    if (isDebug()) writeFileSync(repos_path, JSON.stringify(repo_list, null, 2), 'utf-8');
     var repo_name = await getList(repo_list);
-    if (isDebug) writeFileSync(list_path, JSON.stringify(repo_name, null, 2), 'utf-8');
+    if (isDebug()) writeFileSync(list_path, JSON.stringify(repo_name, null, 2), 'utf-8');
     endGroup();
   } catch (error) {
     debug(`Error[run]: ${error}`);
