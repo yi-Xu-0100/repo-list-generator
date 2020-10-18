@@ -6,7 +6,7 @@ const { pluck, zip, unzip, reject } = require('underscore');
 const { join } = require('path');
 const { writeFileSync } = require('fs');
 
-let getAll = async function (user, page = 10) {
+let getAll = async function (user, page = 10, isDebug = false) {
   var repo_list = [];
   for (let i = 1; i < parseInt(page); i++) {
     try {
@@ -16,13 +16,13 @@ let getAll = async function (user, page = 10) {
       repo_list.push.apply(repo_list, resp.data);
       if (!resp.headers.link || resp.headers.link.match(/rel=\\"first\\"/)) break;
     } catch (error) {
-      debug(`error[getAll]: ${error}`);
+      debug(`Error[getAll]: ${error}`);
       throw error;
     }
   }
   var repo_info = join('.repo_list', 'repo-info.json');
   debug(`repo-info: ${repo_info}`);
-  writeFileSync(repo_info, JSON.stringify(repo_list, null, 2), 'utf-8');
+  if (isDebug) writeFileSync(repo_info, JSON.stringify(repo_list, null, 2), 'utf-8');
   repo_list = reject(repo_list, item => item.owner.login != user);
   var repo_list_name = pluck(repo_list, 'name');
   var repo_list_private = pluck(repo_list, 'private');

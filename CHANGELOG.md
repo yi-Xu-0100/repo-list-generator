@@ -11,9 +11,15 @@ The emoji used in the `GitHub` commit message is based on [gitmoji](https://gitm
 
 ### ✨ Added
 
+- ✨ add debug option for save repo information.(default false)
+
 ### ♻️ Changed
 
+- 🙈 remove test dir
+
 ### 🐛 Fixed
+
+- 🐛 Fix `privateList` and `forkList` info error.
 
 ### 🔒 Security
 

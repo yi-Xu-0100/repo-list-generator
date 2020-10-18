@@ -19,6 +19,11 @@ inputs:
       Default 100 repository per page and one page is 100 items.
     required: false
     default: 10
+  debug:
+    description: >
+      Set the debug option for generator .repo-info directory.
+    required: false
+    default: false
   my_token:
     description: >
       Set up the personal access token (PAT) to generate repository list for user or organization.

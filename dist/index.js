@@ -7734,7 +7734,15 @@ function wrappy (fn, cb) {
 /***/ 351:
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-const { debug, info, startGroup, endGroup, getInput, setFailed } = __webpack_require__(186);
+const {
+  debug,
+  info,
+  startGroup,
+  endGroup,
+  getInput,
+  setFailed,
+  warning
+} = __webpack_require__(186);
 const { join } = __webpack_require__(622);
 const { getAll, getList } = __webpack_require__(264);
 const { writeFileSync, existsSync, mkdirSync } = __webpack_require__(747);
@@ -7746,23 +7754,40 @@ async function run() {
   debug(`repos_path: ${repos_path}`);
   var list_path = join(repo_list_cache, 'repo-name.json');
   debug(`list_path: ${list_path}`);
-  if (!existsSync(repo_list_cache)) mkdirSync(repo_list_cache);
   try {
     startGroup('Get input value');
     const user = getInput('user', { require: false });
     info(`[Info]: user: ${user}`);
     const maxPage = getInput('maxPage', { require: false });
     info(`[Info]: maxPage: ${maxPage}`);
+    const isDebug = getInput('debug', { require: false });
+    info(`[Info]: isDebug: ${isDebug}`);
+    if (!existsSync(repo_list_cache)) {
+      if (isDebug) mkdirSync(repo_list_cache);
+    } else {
+      if (isDebug) throw Error(`The cache directory(${repo_list_cache}) is occupied!`);
+      else
+        warning(
+          `[Warning]: The cache directory(${repo_list_cache}) is occupied! ` +
+            '\n' +
+            '[Warning]: If debug option set to be true, it will be Error!'
+        );
+    }
+    warning(
+      `[Warning]: The cache directory(${repo_list_cache}) is occupied! ` +
+        '\n' +
+        '[Warning]: If debug option set to be true, it will be Error!'
+    );
     endGroup();
 
     startGroup('Get repo list');
-    var repo_list = await getAll(user, maxPage);
-    writeFileSync(repos_path, JSON.stringify(repo_list, null, 2), 'utf-8');
+    var repo_list = await getAll(user, maxPage, isDebug);
+    if (isDebug) writeFileSync(repos_path, JSON.stringify(repo_list, null, 2), 'utf-8');
     var repo_name = await getList(repo_list);
-    writeFileSync(list_path, JSON.stringify(repo_name, null, 2), 'utf-8');
+    if (isDebug) writeFileSync(list_path, JSON.stringify(repo_name, null, 2), 'utf-8');
     endGroup();
   } catch (error) {
-    debug(`error[run]: ${error}`);
+    debug(`Error[run]: ${error}`);
     setFailed(error);
   }
 }
@@ -7783,7 +7808,7 @@ const { pluck, zip, unzip, reject } = __webpack_require__(987);
 const { join } = __webpack_require__(622);
 const { writeFileSync } = __webpack_require__(747);
 
-let getAll = async function (user, page = 10) {
+let getAll = async function (user, page = 10, isDebug = false) {
   var repo_list = [];
   for (let i = 1; i < parseInt(page); i++) {
     try {
@@ -7793,13 +7818,13 @@ let getAll = async function (user, page = 10) {
       repo_list.push.apply(repo_list, resp.data);
       if (!resp.headers.link || resp.headers.link.match(/rel=\\"first\\"/)) break;
     } catch (error) {
-      debug(`error[getAll]: ${error}`);
+      debug(`Error[getAll]: ${error}`);
       throw error;
     }
   }
   var repo_info = join('.repo_list', 'repo-info.json');
   debug(`repo-info: ${repo_info}`);
-  writeFileSync(repo_info, JSON.stringify(repo_list, null, 2), 'utf-8');
+  if (isDebug) writeFileSync(repo_info, JSON.stringify(repo_list, null, 2), 'utf-8');
   repo_list = reject(repo_list, item => item.owner.login != user);
   var repo_list_name = pluck(repo_list, 'name');
   var repo_list_private = pluck(repo_list, 'private');
