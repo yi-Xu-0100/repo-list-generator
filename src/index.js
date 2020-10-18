@@ -24,7 +24,10 @@ async function run() {
     info(`[Info]: user: ${user}`);
     const maxPage = getInput('maxPage', { require: false });
     info(`[Info]: maxPage: ${maxPage}`);
-    const isDebug = getInput('debug', { require: false });
+    const _isDebug = getInput('debug', { require: false });
+    if (_isDebug.toLowerCase() === 'true') var isDebug = true;
+    else if (_isDebug.toLowerCase() === 'false') isDebug = false;
+    else throw Error(`The debug option only can be set to be true or false`);
     info(`[Info]: isDebug: ${isDebug}`);
     if (!existsSync(repo_list_cache)) {
       if (isDebug) mkdirSync(repo_list_cache);
@@ -32,15 +35,15 @@ async function run() {
       if (isDebug) throw Error(`The cache directory(${repo_list_cache}) is occupied!`);
       else
         warning(
-          `[Warning]: The cache directory(${repo_list_cache}) is occupied! ` +
+          `The cache directory(${repo_list_cache}) is occupied! ` +
             '\n' +
-            '[Warning]: If debug option set to be true, it will be Error!'
+            'If debug option set to be true, it will be Error!'
         );
     }
     warning(
-      `[Warning]: The cache directory(${repo_list_cache}) is occupied! ` +
+      `The cache directory(${repo_list_cache}) is occupied! ` +
         '\n' +
-        '[Warning]: If debug option set to be true, it will be Error!'
+        'If debug option set to be true, it will be Error!'
     );
     endGroup();
 
@@ -52,7 +55,7 @@ async function run() {
     endGroup();
   } catch (error) {
     debug(`Error[run]: ${error}`);
-    setFailed(error);
+    setFailed(error.message);
   }
 }
 
