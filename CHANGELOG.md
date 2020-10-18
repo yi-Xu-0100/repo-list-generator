@@ -11,19 +11,27 @@ The emoji used in the `GitHub` commit message is based on [gitmoji](https://gitm
 
 ### ✨ Added
 
+### ♻️ Changed
+
+### 🐛 Fixed
+
+### 🔒 Security
+
+## [0.2.0] - 2020-10-18
+
+### ✨ Added
+
 - ✨ Fit debug option for save repo information.(default false)
 - ✨ Use artifact option to upload repo information in debug mode.
 - ✨ Add current repo name to output(repo).
 
 ### ♻️ Changed
 
-- 🙈 remove test dir
+- 🙈 remove test directory.
 
 ### 🐛 Fixed
 
 - 🐛 Fix `privateList` and `forkList` info error.
-
-### 🔒 Security
 
 ## [0.1.0] - 2020-10-16
 
@@ -51,7 +59,8 @@ The emoji used in the `GitHub` commit message is based on [gitmoji](https://gitm
 
 - 🎉 first publish.
 
-[unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.1.0...HEAD
+[unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/mindsers/changelog-reader-action/compare/v0.2.0
 [0.1.0]: https://github.com/mindsers/changelog-reader-action/compare/v0.1.0
 [0.0.3]: https://github.com/mindsers/changelog-reader-action/compare/v0.0.3
 [0.0.2]: https://github.com/mindsers/changelog-reader-action/compare/v0.0.2
