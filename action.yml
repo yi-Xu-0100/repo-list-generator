@@ -16,7 +16,7 @@ inputs:
   maxPage:
     description: >
       Set up maxPage for request to generate repository list.
-      Default 100 repository per page.
+      Default 100 repository per page and one page is 100 items.
     required: false
     default: 10
   my_token:
