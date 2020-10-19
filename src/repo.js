@@ -7,10 +7,9 @@ const { writeFileSync } = require('fs');
 let getAll = async function (user, page = 10) {
   var my_token = getInput('my_token', { require: false });
   var octokit = new getOctokit(my_token);
-  debug(`my_token === GITHUB_TOKEN: ${my_token === process.env.GITHUB_TOKEN}`);
-  debug(JSON.stringify(process.env));
+  debug(`my_token === GITHUB_TOKEN: ${my_token === process.env.ACTIONS_RUNTIME_TOKEN}`);
   var listFunction =
-    my_token != process.env.GITHUB_TOKEN
+    my_token != process.env.ACTIONS_RUNTIME_TOKEN
       ? octokit.repos.listForAuthenticatedUser
       : octokit.repos.listForUser;
   var repo_list = [];
