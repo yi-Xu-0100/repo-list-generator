@@ -7,11 +7,18 @@ const { writeFileSync } = require('fs');
 let getAll = async function (user, page = 10) {
   var my_token = getInput('my_token', { require: false });
   var octokit = new getOctokit(my_token);
-  debug(`my_token === GITHUB_TOKEN: ${my_token === process.env.ACTIONS_RUNTIME_TOKEN}`);
-  var listFunction =
-    my_token != process.env.ACTIONS_RUNTIME_TOKEN
-      ? octokit.repos.listForAuthenticatedUser
-      : octokit.repos.listForUser;
+  try {
+    var listFunction = octokit.repos.listForAuthenticatedUser;
+    await listFunction();
+  } catch (error) {
+    if (error.message === 'Resource not accessible by integration') {
+      info('[INFO]: This token can not used for listForAuthenticatedUser()');
+      listFunction = octokit.repos.listForUser;
+    } else {
+      debug(`ERROR[listFunction]: ${error}`);
+      throw error;
+    }
+  }
   var repo_list = [];
   for (let i = 1; i < parseInt(page); i++) {
     try {
@@ -21,7 +28,7 @@ let getAll = async function (user, page = 10) {
       repo_list.push.apply(repo_list, resp.data);
       if (!resp.headers.link || resp.headers.link.match(/rel=\\"first\\"/)) break;
     } catch (error) {
-      debug(`Error[getAll]: [${i}]: ${error}`);
+      debug(`ERROR[getAll]: [${i}]: ${error}`);
       throw error;
     }
   }

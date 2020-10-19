@@ -68,7 +68,7 @@ async function run() {
     }
     info('[INFO]: Action successfully completed');
   } catch (error) {
-    debug(`Error[run]: ${error}`);
+    debug(`ERROR[run]: ${error}`);
     setFailed(error.message);
   }
 }
