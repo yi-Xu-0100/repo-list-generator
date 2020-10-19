@@ -14405,23 +14405,28 @@ run();
 
 const { context, getOctokit } = __webpack_require__(5438);
 const { debug, info, getInput, setOutput, isDebug } = __webpack_require__(2186);
-const my_token = getInput('my_token', { require: true });
-const octokit = new getOctokit(my_token);
 const { pluck, zip, unzip, reject } = __webpack_require__(4987);
 const { join } = __webpack_require__(5622);
 const { writeFileSync } = __webpack_require__(5747);
 
 let getAll = async function (user, page = 10) {
+  var my_token = getInput('my_token', { require: false });
+  var octokit = new getOctokit(my_token);
+  debug(`my_token === GITHUB_TOKEN: ${my_token === process.env.GITHUB_TOKEN}`);
+  var listFunction =
+    my_token != process.env.GITHUB_TOKEN
+      ? octokit.repos.listForAuthenticatedUser
+      : octokit.repos.listForUser;
   var repo_list = [];
   for (let i = 1; i < parseInt(page); i++) {
     try {
-      let resp = await octokit.repos.listForAuthenticatedUser({ page: i, per_page: 100 });
-      debug(`Request Header ${i}:`);
+      let resp = await listFunction({ page: i, per_page: 100 });
+      debug(`Request Header [${i}]:`);
       debug(JSON.stringify(resp.headers));
       repo_list.push.apply(repo_list, resp.data);
       if (!resp.headers.link || resp.headers.link.match(/rel=\\"first\\"/)) break;
     } catch (error) {
-      debug(`Error[getAll]: ${error}`);
+      debug(`Error[getAll]: [${i}]: ${error}`);
       throw error;
     }
   }

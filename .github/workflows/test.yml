@@ -1,9 +1,9 @@
-name: test
+name: 'Repo list generator'
 
 on:
   push:
     branches:
-      - main
+      - test-github_token
 
 jobs:
   run:
@@ -29,14 +29,12 @@ jobs:
           echo privateList: ${{steps.repo.outputs.privateList}}
           echo forkList: ${{steps.repo.outputs.forkList}}
 
-      - name: Get Repo List for organization
+      - name: Get Repo List for user
         id: repo1
         uses: ./
         with:
-          my_token: ${{ secrets.REPO_TOKEN }}
-          user: yi-xu-test-organization
 
-      - name: Echo Output for organization
+      - name: Echo Output for user
         run: |
           echo repo: ${{steps.repo1.outputs.repo}}
           echo repoList: ${{steps.repo1.outputs.repoList}}
@@ -45,3 +43,36 @@ jobs:
           echo repoList_FORK: ${{steps.repo1.outputs.repoList_FORK}}
           echo privateList: ${{steps.repo1.outputs.privateList}}
           echo forkList: ${{steps.repo1.outputs.forkList}}
+
+      - name: Get Repo List for organization
+        id: repo2
+        uses: ./
+        with:
+          my_token: ${{ secrets.REPO_TOKEN }}
+          user: yi-xu-test-organization
+
+      - name: Echo Output for organization
+        run: |
+          echo repo: ${{steps.repo2.outputs.repo}}
+          echo repoList: ${{steps.repo2.outputs.repoList}}
+          echo repoList_ALL: ${{steps.repo2.outputs.repoList_ALL}}
+          echo repoList_PRIVATE: ${{steps.repo2.outputs.repoList_PRIVATE}}
+          echo repoList_FORK: ${{steps.repo2.outputs.repoList_FORK}}
+          echo privateList: ${{steps.repo2.outputs.privateList}}
+          echo forkList: ${{steps.repo2.outputs.forkList}}
+
+      - name: Get Repo List for organization
+        id: repo3
+        uses: ./
+        with:
+          user: yi-xu-test-organization
+
+      - name: Echo Output for organization
+        run: |
+          echo repo: ${{steps.repo3.outputs.repo}}
+          echo repoList: ${{steps.repo3.outputs.repoList}}
+          echo repoList_ALL: ${{steps.repo3.outputs.repoList_ALL}}
+          echo repoList_PRIVATE: ${{steps.repo3.outputs.repoList_PRIVATE}}
+          echo repoList_FORK: ${{steps.repo3.outputs.repoList_FORK}}
+          echo privateList: ${{steps.repo3.outputs.privateList}}
+          echo forkList: ${{steps.repo3.outputs.forkList}}

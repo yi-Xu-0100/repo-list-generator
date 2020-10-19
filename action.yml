@@ -23,7 +23,8 @@ inputs:
     description: >
       Set up the personal access token (PAT).
       The PAT is used to generate repository list for user or organization.
-    required: true
+    required: false
+    default: ${{ github.token }}
 
 outputs:
   repo:
