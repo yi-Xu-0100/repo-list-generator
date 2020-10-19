@@ -48,27 +48,27 @@ let getList = async function (repo_list) {
   debug(JSON.stringify(repo_list));
   var repos = repo_list.repo_list;
 
-  const repoList = unzip(reject(repos, item => item[1] || item[2]))[0];
+  const repoList = unzip(reject(repos, item => item[1] || item[2]))[0] || '';
   debug(`repoList[${repoList.length}]: ${repoList.toString()}`);
   setOutput('repoList', repoList.toString());
 
-  const repoList_ALL = unzip(repos)[0];
+  const repoList_ALL = unzip(repos)[0] || '';
   debug(`repoList_ALL[${repoList_ALL.length}]: ${repoList_ALL.toString()}`);
   setOutput('repoList_ALL', repoList_ALL.toString());
 
-  const repoList_PRIVATE = unzip(reject(repos, item => item[2]))[0];
+  const repoList_PRIVATE = unzip(reject(repos, item => item[2]))[0] || '';
   debug(`repoList_PRIVATE[${repoList_PRIVATE.length}]: ${repoList_PRIVATE.toString()}`);
   setOutput('repoList_PRIVATE', repoList_PRIVATE.toString());
 
-  const repoList_FORK = unzip(reject(repos, item => item[1]))[0];
+  const repoList_FORK = unzip(reject(repos, item => item[1]))[0] || '';
   debug(`repoList_FORK[${repoList_FORK.length}]: ${repoList_FORK.toString()}`);
   setOutput('repoList_FORK', repoList_FORK.toString());
 
-  const privateList = unzip(reject(repos, item => !item[1]))[0];
+  const privateList = unzip(reject(repos, item => !item[1]))[0] || '';
   debug(`privateList[${privateList.length}]: ${privateList.toString()}`);
   setOutput('privateList', privateList.toString());
 
-  const forkList = unzip(reject(repos, item => !item[2]))[0];
+  const forkList = unzip(reject(repos, item => !item[2]))[0] || '';
   debug(`forkList[${forkList.length}]: ${forkList.toString()}`);
   setOutput('forkList', forkList.toString());
 
