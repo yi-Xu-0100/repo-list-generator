@@ -8,6 +8,7 @@ let getAll = async function (user, page = 10) {
   var my_token = getInput('my_token', { require: false });
   var octokit = new getOctokit(my_token);
   debug(`my_token === GITHUB_TOKEN: ${my_token === process.env.GITHUB_TOKEN}`);
+  debug(JSON.stringify(process.env));
   var listFunction =
     my_token != process.env.GITHUB_TOKEN
       ? octokit.repos.listForAuthenticatedUser
