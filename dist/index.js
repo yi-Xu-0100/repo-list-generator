@@ -14427,7 +14427,7 @@ let getAll = async function (user, page = 10) {
   var repo_list = [];
   for (let i = 1; i < parseInt(page); i++) {
     try {
-      let resp = await listFunction({ page: i, per_page: 100 });
+      let resp = await listFunction({ username: user, page: i, per_page: 100 });
       debug(`Request Header [${i}]:`);
       debug(JSON.stringify(resp.headers));
       repo_list.push.apply(repo_list, resp.data);
