@@ -8,7 +8,7 @@
 
 The GitHub action that generate repo list for user or organization.
 
-**The personal access token (PAT) used to fetch the repository list. Guide in [here](#-generate-my_token).**
+**The personal access token (PAT) is used to fetch the repository list. Guide in [here](#-generate-my_token).**
 
 ## 🎨 Table of Contents
 
@@ -34,42 +34,43 @@ inputs:
   maxPage:
     description: >
       Set up maxPage for request to generate repository list.
-      Default 100 repository per page.
+      Default 100 repository per page and one page is 100 items.
     required: false
     default: 10
   my_token:
     description: >
-      Set up the personal access token (PAT) to generate repository list for user or organization.
+      Set up the personal access token (PAT).
+      The PAT is used to generate repository list for user or organization.
     required: true
 
 outputs:
   repo:
     description: >
-      Current repository name
+      Current repository name.
   repoList:
     description: >
-      Repository list exclude private and fork
-      Source without private(Public) and no fork
+      Repository list exclude private and fork.
+      Source without private(Public) and no fork.
   repoList_ALL:
     description: >
-      Repository list include private and fork
+      Repository list include private and fork.
       Source and fork
   repoList_PRIVATE:
     description: >
-      Repository list include private
-      Source and no fork
+      Repository list include private.
+      Source and no fork.
   repoList_FORK:
     description: >
-      Repository list include fork
-      Source without private(Public) and fork
+      Repository list include fork.
+      Source without private(Public) and fork.
   privateList:
     description: >
-      Private repository list
-      Only private(fork can not be private)
+      Private repository list.
+      Only private(fork can not be private).
   forkList:
     description: >
-      Fork repository list
-      Only fork(private can not be fork)
+      Fork repository list.
+      Only fork(private can not be fork).
 ```
 
 ## 📝 Example
@@ -79,7 +80,7 @@ outputs:
 ```yml
 - name: Get Repo List
   id: repo
-  uses: yi-Xu-0100/repo-list-generator@v0.1.0
+  uses: yi-Xu-0100/repo-list-generator@v0.2.1
   with:
     my_token: ${{ secrets.REPO_TOKEN }}
 
