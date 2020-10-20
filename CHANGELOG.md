@@ -17,7 +17,17 @@ The emoji used in the `GitHub` commit message is based on [gitmoji](https://gitm
 
 ### 🔒 Security
 
+## [0.3.0] - 2020-10-20
+
+### ♻️ Changed
+
+- support default `GITHUB_TOKEN`.
+
 ## [0.2.1] -2020-10-19
+
+### ✨ Added
+
+- support for organization.
 
 ### ♻️ Changed
 
@@ -66,7 +76,8 @@ The emoji used in the `GitHub` commit message is based on [gitmoji](https://gitm
 
 - 🎉 first publish.
 
-[unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.2.1...HEAD
+[unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/mindsers/changelog-reader-action/compare/v0.2.1
 [0.2.1]: https://github.com/mindsers/changelog-reader-action/compare/v0.2.1
 [0.2.0]: https://github.com/mindsers/changelog-reader-action/compare/v0.2.0
 [0.1.0]: https://github.com/mindsers/changelog-reader-action/compare/v0.1.0

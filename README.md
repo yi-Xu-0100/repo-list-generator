@@ -15,7 +15,9 @@ The GitHub action that generate repo list for user or organization.
 - [⚡️ Repo List Generator GitHub Action](#️-repo-list-generator-github-action)
 - [🎨 Table of Contents](#-table-of-contents)
 - [🚀 Configuration](#-configuration)
-- [📝 Example](#-example)
+- [📝 Default example](#-default-example)
+- [📝 Example for get private repository](#-example-for-get-private-repository)
+- [🚀 More Related Usage](#-more-related-usage)
 - [📝 Use dependabot to keep action up-to-date](#-use-dependabot-to-keep-action-up-to-date)
 - [🙈 Generate `my_token`](#-generate-my_token)
 - [🔊 CHANGELOG](#-changelog)
@@ -41,7 +43,8 @@ inputs:
     description: >
       Set up the personal access token (PAT).
       The PAT is used to generate repository list for user or organization.
-    required: true
+    required: false
+    default: ${{ github.token }}
 
 outputs:
   repo:
@@ -73,14 +76,35 @@ outputs:
       Only fork(private can not be fork).
 ```
 
-## 📝 Example
+## 📝 Default example
 
-**This example use `REPO_TOKEN` to fetch repository list. The Guide to generate in [here](#-generate-my_token).**
+**Default example use `GITHUB_TOKEN` to fetch public repository list for user or organization.**
 
 ```yml
 - name: Get Repo List
   id: repo
-  uses: yi-Xu-0100/repo-list-generator@v0.2.1
+  uses: yi-Xu-0100/repo-list-generator@v0.3.0
+  with:
+
+- name: Echo Output
+  run: |
+    echo repo: ${{steps.repo.outputs.repo}}
+    echo repoList: ${{steps.repo.outputs.repoList}}
+    echo repoList_ALL: ${{steps.repo.outputs.repoList_ALL}}
+    echo repoList_PRIVATE: ${{steps.repo.outputs.repoList_PRIVATE}}
+    echo repoList_FORK: ${{steps.repo.outputs.repoList_FORK}}
+    echo privateList: ${{steps.repo.outputs.privateList}}
+    echo forkList: ${{steps.repo.outputs.forkList}}
+```
+
+## 📝 Example for get private repository
+
+**This example use `REPO_TOKEN` to fetch private repository list for user or organization. The Guide to generate in [here](#-generate-my_token).**
+
+```yml
+- name: Get Repo List
+  id: repo
+  uses: yi-Xu-0100/repo-list-generator@v0.3.0
   with:
     my_token: ${{ secrets.REPO_TOKEN }}
 
@@ -95,7 +119,9 @@ outputs:
     echo forkList: ${{steps.repo.outputs.forkList}}
 ```
 
-**More Related Usage: This action result can be used in `static_list` generating.**
+## 🚀 More Related Usage
+
+**This action result can be used in the follow actions `static_list` generating.**
 
 - [yi-Xu-0100/hub-mirror](https://github.com/yi-Xu-0100/hub-mirror) use [Yikun/hub-mirror-action](https://github.com/Yikun/hub-mirror-action) to synchronize `GitHub` repositories to `Gitee`.
 - [yi-Xu-0100/traffic-to-badge](https://github.com/yi-Xu-0100/traffic-to-badge) use repositories `Insights/traffic` data to generate badges that include views and clones.
