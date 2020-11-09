@@ -6,10 +6,10 @@
   "scripts": {
     "lint-check": "prettier --check **/*.{js,yml,json,md} && eslint .",
     "format": "prettier --write **/*.{js,yml,json,md} && eslint .",
-    "clear": "rimraf -rf dist/* .repo_list/",
-    "build": "npm run clear && ncc build src/index.js --source-map --license license.txt",
-    "dry-test": "node --require dotenv/config dist/index.js",
-    "test": "npm run build && npm run dry-test"
+    "clean": "rimraf -rf dist/* .repo_list/",
+    "prebuild": "npm run clean",
+    "build": "ncc build src/index.js --source-map --license license.txt",
+    "test": "npm run build && node --require dotenv/config dist/index.js"
   },
   "husky": {
     "hooks": {

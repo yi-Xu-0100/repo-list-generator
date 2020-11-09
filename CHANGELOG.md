@@ -9,6 +9,8 @@ The emoji used in the `GitHub` commit message is based on [gitmoji](https://gitm
 
 ## [Unreleased]
 
+## [0.4.0] - 2020-11-09
+
 ### ✨ Added
 
 - ✨ add `block_list` support.
@@ -16,10 +18,6 @@ The emoji used in the `GitHub` commit message is based on [gitmoji](https://gitm
 ### ♻️ Changed
 
 - 🗑 change maxPage to max_page.
-
-### 🐛 Fixed
-
-### 🔒 Security
 
 ## [0.3.0] - 2020-10-20
 
@@ -80,11 +78,12 @@ The emoji used in the `GitHub` commit message is based on [gitmoji](https://gitm
 
 - 🎉 first publish.
 
-[unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.3.0...HEAD
-[0.3.0]: https://github.com/mindsers/changelog-reader-action/compare/v0.2.1
-[0.2.1]: https://github.com/mindsers/changelog-reader-action/compare/v0.2.1
-[0.2.0]: https://github.com/mindsers/changelog-reader-action/compare/v0.2.0
-[0.1.0]: https://github.com/mindsers/changelog-reader-action/compare/v0.1.0
-[0.0.3]: https://github.com/mindsers/changelog-reader-action/compare/v0.0.3
-[0.0.2]: https://github.com/mindsers/changelog-reader-action/compare/v0.0.2
-[0.0.1]: https://github.com/mindsers/changelog-reader-action/compare/v0.0.1
+[unreleased]: https://github.com/yi-Xu-0100/repo-list-generator/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/yi-Xu-0100/repo-list-generator/tree/v0.4.0
+[0.3.0]: https://github.com/yi-Xu-0100/repo-list-generator/tree/v0.3.0
+[0.2.1]: https://github.com/yi-Xu-0100/repo-list-generator/tree/v0.2.1
+[0.2.0]: https://github.com/yi-Xu-0100/repo-list-generator/tree/v0.2.0
+[0.1.0]: https://github.com/yi-Xu-0100/repo-list-generator/tree/v0.1.0
+[0.0.3]: https://github.com/yi-Xu-0100/repo-list-generator/tree/v0.0.3
+[0.0.2]: https://github.com/yi-Xu-0100/repo-list-generator/tree/v0.0.2
+[0.0.1]: https://github.com/yi-Xu-0100/repo-list-generator/tree/v0.0.1
