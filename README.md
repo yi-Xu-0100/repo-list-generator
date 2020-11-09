@@ -35,6 +35,13 @@ inputs:
     default: ${{ github.actor }}
   maxPage:
     description: >
+      Deprecated!
+      Set up maxPage for request to generate repository list.
+      Default 100 repository per page and one page is 100 items.
+    required: false
+    default: 10
+  max_page:
+    description: >
       Set up maxPage for request to generate repository list.
       Default 100 repository per page and one page is 100 items.
     required: false
@@ -45,6 +52,12 @@ inputs:
       The PAT is used to generate repository list for user or organization.
     required: false
     default: ${{ github.token }}
+  block_list:
+    description: >
+      Set up the block_list for repoList.
+      The repositories in block_list will exclude in repository list.
+    required: false
+    default: ''
 
 outputs:
   repo:
@@ -84,7 +97,11 @@ outputs:
 - name: Get Repo List
   id: repo
   uses: yi-Xu-0100/repo-list-generator@v0.3.0
-  with:
+  #with:
+  #(default)my_token: ${{ secrets.GITHUB_TOKEN }}
+  #(default)user: ${{ github.actor }}
+  #(default)max_page: 10
+  #(default)block_list:
 
 - name: Echo Output
   run: |
@@ -107,6 +124,9 @@ outputs:
   uses: yi-Xu-0100/repo-list-generator@v0.3.0
   with:
     my_token: ${{ secrets.REPO_TOKEN }}
+    #(default)user: ${{ github.actor }}
+    #(default)max_page: 10
+    #(default)block_list:
 
 - name: Echo Output
   run: |

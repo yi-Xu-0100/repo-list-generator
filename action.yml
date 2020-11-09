@@ -15,6 +15,13 @@ inputs:
     default: ${{ github.actor }}
   maxPage:
     description: >
+      Deprecated!
+      Set up maxPage for request to generate repository list.
+      Default 100 repository per page and one page is 100 items.
+    required: false
+    default: 10
+  max_page:
+    description: >
       Set up maxPage for request to generate repository list.
       Default 100 repository per page and one page is 100 items.
     required: false
@@ -25,6 +32,12 @@ inputs:
       The PAT is used to generate repository list for user or organization.
     required: false
     default: ${{ github.token }}
+  block_list:
+    description: >
+      Set up the block_list for repoList.
+      The repositories in block_list will exclude in repository list.
+    required: false
+    default: ''
 
 outputs:
   repo:

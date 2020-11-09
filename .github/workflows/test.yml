@@ -16,6 +16,8 @@ jobs:
       - name: Get Repo List for user and GITHUB_TOKEN
         id: repo
         uses: ./
+        with:
+          block_list: 'test'
 
       - name: Echo Output for user and GITHUB_TOKEN
         run: |
@@ -32,6 +34,7 @@ jobs:
         uses: ./
         with:
           my_token: ${{ secrets.REPO_TOKEN }}
+          block_list: 'test'
 
       - name: Echo Output for user and REPO_TOKEN
         run: |
@@ -48,6 +51,7 @@ jobs:
         uses: ./
         with:
           user: yi-xu-test-organization
+          block_list: 'test'
 
       - name: Echo Output for organization with GITHUB_TOKEN
         run: |
@@ -65,6 +69,7 @@ jobs:
         with:
           my_token: ${{ secrets.REPO_TOKEN }}
           user: yi-xu-test-organization
+          block_list: 'test'
 
       - name: Echo Output for organization and REPO_TOKEN
         run: |

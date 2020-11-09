@@ -11,7 +11,11 @@ The emoji used in the `GitHub` commit message is based on [gitmoji](https://gitm
 
 ### ✨ Added
 
+- ✨ add `block_list` support.
+
 ### ♻️ Changed
+
+- 🗑 change maxPage to max_page.
 
 ### 🐛 Fixed
 

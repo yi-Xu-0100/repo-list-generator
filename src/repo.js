@@ -43,10 +43,11 @@ let getAll = async function (user, page = 10) {
   return { repo_list: zip(repo_list_name, repo_list_private, repo_list_fork) };
 };
 
-let getList = async function (repo_list) {
+let getList = async function (repo_list, block_list) {
   debug(`repo_list:`);
   debug(JSON.stringify(repo_list));
   var repos = repo_list.repo_list;
+  repos = reject(repos, item => block_list.includes(item[0]));
 
   const repoList = unzip(reject(repos, item => item[1] || item[2]))[0] || '';
   debug(`repoList[${repoList.length}]: ${repoList.toString()}`);
@@ -74,12 +75,13 @@ let getList = async function (repo_list) {
 
   setOutput('repo', context.repo.repo);
   info(`[INFO]: repo: ${context.repo.repo}`);
-  info(`[INFO]: repoList ${repoList.length}`);
-  info(`[INFO]: repoList_ALL ${repoList_ALL.length}`);
-  info(`[INFO]: repoList_PRIVATE ${repoList_PRIVATE.length}`);
-  info(`[INFO]: repoList_FORK ${repoList_FORK.length}`);
-  info(`[INFO]: privateList ${privateList.length}`);
-  info(`[INFO]: forkList ${forkList.length}`);
+  info(`[INFO]: repoList: ${repoList.length}`);
+  info(`[INFO]: repoList_ALL: ${repoList_ALL.length}`);
+  info(`[INFO]: repoList_PRIVATE: ${repoList_PRIVATE.length}`);
+  info(`[INFO]: repoList_FORK: ${repoList_FORK.length}`);
+  info(`[INFO]: privateList: ${privateList.length}`);
+  info(`[INFO]: forkList: ${forkList.length}`);
+  info(`[INFO]: block_list: ${block_list}`);
   return {
     repoList: repoList,
     repoList_ALL: repoList_ALL,

@@ -28,6 +28,16 @@ async function run() {
     info(`[INFO]: user: ${user}`);
     const maxPage = getInput('maxPage', { require: false });
     info(`[INFO]: maxPage: ${maxPage}`);
+    var max_page = getInput('max_page', { require: false });
+    info(`[INFO]: max_page: ${max_page}`);
+    warning('[WARNING]: maxPage will change to max_page in v1.0.0!');
+    warning('[WARNING]: Now the page number will be set in bigger one!');
+    if (max_page < maxPage) max_page = maxPage;
+    info(`[INFO]: max_page_bigger: ${max_page}`);
+    const block_list = getInput('block_list', { require: false })
+      .split(`,`)
+      .map(item => item.split(`/`).pop());
+    info(`[INFO]: block_list: ${block_list}`);
     info(`[INFO]: isDebug: ${isDebug()}`);
     if (!existsSync(repo_list_cache)) {
       if (isDebug()) mkdirSync(repo_list_cache);
@@ -43,12 +53,12 @@ async function run() {
     endGroup();
 
     startGroup('Get repo list');
-    var repo_list = await getAll(user, maxPage);
+    var repo_list = await getAll(user, max_page);
     if (isDebug()) writeFileSync(repos_path, JSON.stringify(repo_list, null, 2), 'utf-8');
-    var repo_name = await getList(repo_list);
+    var repo_name = await getList(repo_list, block_list);
     if (isDebug()) writeFileSync(list_path, JSON.stringify(repo_name, null, 2), 'utf-8');
     endGroup();
-    if (isDebug()) {
+    if (isDebug() && !process.env['LOCAL_DEBUG']) {
       startGroup('Upload repo list debug artifact');
       const artifactClient = artifact.create();
       const artifactName = `repos-${user}`;
