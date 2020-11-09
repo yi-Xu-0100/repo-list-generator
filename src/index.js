@@ -61,7 +61,7 @@ async function run() {
     if (isDebug() && !process.env['LOCAL_DEBUG']) {
       startGroup('Upload repo list debug artifact');
       const artifactClient = artifact.create();
-      const artifactName = `repos-${user}`;
+      const artifactName = `repos-${user}-${process.env['GITHUB_ACTION']}`;
       const files = [
         '.repo_list/repo-info.json',
         '.repo_list/repo-list.json',

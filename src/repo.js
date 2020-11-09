@@ -88,7 +88,8 @@ let getList = async function (repo_list, block_list) {
     repoList_PRIVATE: repoList_PRIVATE,
     repoList_FORK: repoList_FORK,
     privateList: privateList,
-    forkList: forkList
+    forkList: forkList,
+    block_list: block_list
   };
 };
 
