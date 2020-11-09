@@ -14330,11 +14330,11 @@ const {
   warning,
   isDebug
 } = __webpack_require__(2186);
-const { rmRF } = __webpack_require__(7436);
+const { mkdirP, rmRF } = __webpack_require__(7436);
 const artifact = __webpack_require__(2605);
 const { join } = __webpack_require__(5622);
 const { getAll, getList } = __webpack_require__(4264);
-const { writeFileSync, existsSync, mkdirSync } = __webpack_require__(5747);
+const { writeFileSync, existsSync } = __webpack_require__(5747);
 
 async function run() {
   info('[INFO]: Usage https://github.com/yi-Xu-0100/repo-list-generator#readme');
@@ -14362,7 +14362,7 @@ async function run() {
     info(`[INFO]: block_list: ${block_list}`);
     info(`[INFO]: isDebug: ${isDebug()}`);
     if (!existsSync(repo_list_cache)) {
-      if (isDebug()) mkdirSync(repo_list_cache);
+      if (isDebug()) mkdirP(repo_list_cache);
     } else {
       if (isDebug()) throw Error(`The cache directory(${repo_list_cache}) is occupied!`);
       else
@@ -14435,7 +14435,7 @@ let getAll = async function (user, page = 10) {
     }
   }
   var repo_list = [];
-  for (let i = 1; i < parseInt(page); i++) {
+  for (let i = 1; i < parseInt(page, 10); i++) {
     try {
       let resp = await listFunction({ username: user, page: i, per_page: 100 });
       debug(`Request Header [${i}]:`);

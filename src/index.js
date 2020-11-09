@@ -8,11 +8,11 @@ const {
   warning,
   isDebug
 } = require('@actions/core');
-const { rmRF } = require('@actions/io');
+const { mkdirP, rmRF } = require('@actions/io');
 const artifact = require('@actions/artifact');
 const { join } = require('path');
 const { getAll, getList } = require('./repo');
-const { writeFileSync, existsSync, mkdirSync } = require('fs');
+const { writeFileSync, existsSync } = require('fs');
 
 async function run() {
   info('[INFO]: Usage https://github.com/yi-Xu-0100/repo-list-generator#readme');
@@ -40,7 +40,7 @@ async function run() {
     info(`[INFO]: block_list: ${block_list}`);
     info(`[INFO]: isDebug: ${isDebug()}`);
     if (!existsSync(repo_list_cache)) {
-      if (isDebug()) mkdirSync(repo_list_cache);
+      if (isDebug()) mkdirP(repo_list_cache);
     } else {
       if (isDebug()) throw Error(`The cache directory(${repo_list_cache}) is occupied!`);
       else

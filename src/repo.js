@@ -20,7 +20,7 @@ let getAll = async function (user, page = 10) {
     }
   }
   var repo_list = [];
-  for (let i = 1; i < parseInt(page); i++) {
+  for (let i = 1; i < parseInt(page, 10); i++) {
     try {
       let resp = await listFunction({ username: user, page: i, per_page: 100 });
       debug(`Request Header [${i}]:`);
