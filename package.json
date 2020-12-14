@@ -46,7 +46,7 @@
   },
   "homepage": "https://github.com/yi-Xu-0100/repo-list-generator#readme",
   "dependencies": {
-    "@actions/artifact": "^0.4.1",
+    "@actions/artifact": "^0.4.2",
     "@actions/core": "^1.1.1",
     "@actions/github": "^4.0.0",
     "@actions/io": "^1.0.2",
