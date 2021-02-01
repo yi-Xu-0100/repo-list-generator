@@ -36,13 +36,13 @@ inputs:
     description: >
       Deprecated!
       Set up maxPage for request to generate repository list.
-      Default 100 repository per page and one page is 100 items.
+      Default 100 repository per page can be fetched.
     required: false
     default: 10
   max_page:
     description: >
       Set up maxPage for request to generate repository list.
-      Default 100 repository per page and one page is 100 items.
+      Default 100 repository per page can be fetched.
     required: false
     default: 10
   my_token:
@@ -65,19 +65,19 @@ outputs:
   repoList:
     description: >
       Repository list exclude private and fork.
-      Source without private(Public) and no fork.
+      Public(source without private) and no fork.
   repoList_ALL:
     description: >
       Repository list include private and fork.
-      Source and fork
+      Source(public and private) and fork
   repoList_PRIVATE:
     description: >
       Repository list include private.
-      Source and no fork.
+      Source(public and private) and no fork.
   repoList_FORK:
     description: >
       Repository list include fork.
-      Source without private(Public) and fork.
+      Public(source without private) and fork.
   privateList:
     description: >
       Private repository list.
@@ -96,11 +96,11 @@ outputs:
 - name: Get Repo List
   id: repo
   uses: yi-Xu-0100/repo-list-generator@v0.4.1
-  #with:
-  #(default)my_token: ${{ secrets.GITHUB_TOKEN }}
-  #(default)user: ${{ github.actor }}
-  #(default)max_page: 10
-  #(default)block_list:
+  # with:
+  # (default)my_token: ${{ secrets.GITHUB_TOKEN }}
+  # (default)user: ${{ github.actor }}
+  # (default)max_page: 10
+  # (default)block_list:
 
 - name: Echo Output
   run: |
