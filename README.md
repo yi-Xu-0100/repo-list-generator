@@ -6,9 +6,14 @@
 [![Github latest release](https://img.shields.io/github/v/release/yi-Xu-0100/repo-list-generator)](https://github.com/yi-Xu-0100/repo-list-generator/releases)
 [![Github license](https://img.shields.io/github/license/yi-Xu-0100/repo-list-generator)](./LICENSE)
 
+[![views](https://raw.githubusercontent.com/yi-Xu-0100/traffic2badge/traffic/traffic-repo-list-generator/views.svg)](https://github.com/yi-Xu-0100/traffic2badge/tree/traffic#-repo-list-generator)
+[![views per week](https://raw.githubusercontent.com/yi-Xu-0100/traffic2badge/traffic/traffic-repo-list-generator/views_per_week.svg)](https://github.com/yi-Xu-0100/traffic2badge/tree/traffic#-repo-list-generator)
+[![clones](https://raw.githubusercontent.com/yi-Xu-0100/traffic2badge/traffic/traffic-repo-list-generator/clones.svg)](https://github.com/yi-Xu-0100/traffic2badge/tree/traffic#-repo-list-generator)
+[![clones per week](https://raw.githubusercontent.com/yi-Xu-0100/traffic2badge/traffic/traffic-repo-list-generator/clones_per_week.svg)](https://github.com/yi-Xu-0100/traffic2badge/tree/traffic#-repo-list-generator)
+
 The GitHub action that generate repo list for user or organization.
 
-**The personal access token (PAT) is used to fetch the repository list. Guide in [here](#-generate-my_token).**
+**The personal access token (PAT) is used to fetch all the repository list of the authenticated user. Guide in [here](#-generate-my_token).**
 
 ## 🎨 Table of Contents
 
@@ -32,13 +37,6 @@ inputs:
       It can be user or organization.
     required: false
     default: ${{ github.actor }}
-  maxPage:
-    description: >
-      Deprecated!
-      Set up maxPage for request to generate repository list.
-      Default 100 repository per page can be fetched.
-    required: false
-    default: 10
   max_page:
     description: >
       Set up maxPage for request to generate repository list.
@@ -104,12 +102,13 @@ outputs:
 ```yml
 - name: Get Repo List
   id: repo
-  uses: yi-Xu-0100/repo-list-generator@v0.4.1
+  uses: yi-Xu-0100/repo-list-generator@v1.0.0
   # with:
   # (default)my_token: ${{ secrets.GITHUB_TOKEN }}
   # (default)user: ${{ github.actor }}
   # (default)max_page: 10
   # (default)block_list:
+  # (default)allow_empty: false
 
 - name: Echo Output
   run: |
@@ -120,6 +119,7 @@ outputs:
     echo repoList_FORK: ${{steps.repo.outputs.repoList_FORK}}
     echo privateList: ${{steps.repo.outputs.privateList}}
     echo forkList: ${{steps.repo.outputs.forkList}}
+    echo emptyList: ${{steps.repo.outputs.emptyList}}
 ```
 
 ## 📝 Example for get private repository
@@ -129,12 +129,13 @@ outputs:
 ```yml
 - name: Get Repo List
   id: repo
-  uses: yi-Xu-0100/repo-list-generator@v0.4.1
+  uses: yi-Xu-0100/repo-list-generator@v1.0.0
   with:
     my_token: ${{ secrets.REPO_TOKEN }}
-    #(default)user: ${{ github.actor }}
-    #(default)max_page: 10
-    #(default)block_list:
+    # (default)user: ${{ github.actor }}
+    # (default)max_page: 10
+    # (default)block_list:
+    # (default)allow_empty: false
 
 - name: Echo Output
   run: |
@@ -145,6 +146,7 @@ outputs:
     echo repoList_FORK: ${{steps.repo.outputs.repoList_FORK}}
     echo privateList: ${{steps.repo.outputs.privateList}}
     echo forkList: ${{steps.repo.outputs.forkList}}
+    echo emptyList: ${{steps.repo.outputs.emptyList}}
 ```
 
 ## 🚀 More Related Usage
@@ -172,11 +174,11 @@ updates:
 
 > This part is obtained from [yi-Xu-0100/traffic-to-badge](https://github.com/yi-Xu-0100/traffic-to-badge#-generate-my_token).
 
-You'll first need to create a personal access token (PAT) which make the action having the access to the GitHub API.
+You'll first need to create a personal access token (PAT) which make the action having the access to the GitHub API of the authenticated user.
 
 You can generate a PAT by going to `Settings(GitHub) -> Developer Settings -> Personal Access Tokens -> Generate new token`, and will need to grant repo permission. For more information, see the [GitHub documentation](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token).
 
-After you generated the PAT, go to `Settings(repository) -> Secrets -> New secret`, name the secret `REPO_TOKEN` and copy the PAT into the box.
+After you generated the PAT, go to `Settings(repository) -> Secrets -> New secret`, name the secret `REPO_TOKEN`, and copy the PAT into the box. Then, you can use the `${{ secrets.REPO_TOKEN }}` to fill with the input `my_token`.
 
 ## 🔊 CHANGELOG
 

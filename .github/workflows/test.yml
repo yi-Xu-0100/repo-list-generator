@@ -1,9 +1,8 @@
-name: 'Repo list generator'
+name: 'test'
 
 on:
   push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   run:
@@ -28,6 +27,7 @@ jobs:
           echo repoList_FORK: ${{steps.repo.outputs.repoList_FORK}}
           echo privateList: ${{steps.repo.outputs.privateList}}
           echo forkList: ${{steps.repo.outputs.forkList}}
+          echo emptyList: ${{steps.repo.outputs.emptyList}}
 
       - name: Get Repo List for user and REPO_TOKEN
         id: repo1
@@ -45,13 +45,14 @@ jobs:
           echo repoList_FORK: ${{steps.repo1.outputs.repoList_FORK}}
           echo privateList: ${{steps.repo1.outputs.privateList}}
           echo forkList: ${{steps.repo1.outputs.forkList}}
+          echo emptyList: ${{steps.repo.outputs.emptyList}}
 
       - name: Get Repo List for organization with GITHUB_TOKEN
         id: repo2
         uses: ./
         with:
           user: yi-xu-test-organization
-          block_list: 'test'
+          block_list: 'test-repo'
 
       - name: Echo Output for organization with GITHUB_TOKEN
         run: |
@@ -62,6 +63,7 @@ jobs:
           echo repoList_FORK: ${{steps.repo2.outputs.repoList_FORK}}
           echo privateList: ${{steps.repo2.outputs.privateList}}
           echo forkList: ${{steps.repo2.outputs.forkList}}
+          echo emptyList: ${{steps.repo.outputs.emptyList}}
 
       - name: Get Repo List for organization and REPO_TOKEN
         id: repo3
@@ -69,7 +71,7 @@ jobs:
         with:
           my_token: ${{ secrets.REPO_TOKEN }}
           user: yi-xu-test-organization
-          block_list: 'test'
+          block_list: 'test-repo'
 
       - name: Echo Output for organization and REPO_TOKEN
         run: |
@@ -80,3 +82,4 @@ jobs:
           echo repoList_FORK: ${{steps.repo3.outputs.repoList_FORK}}
           echo privateList: ${{steps.repo3.outputs.privateList}}
           echo forkList: ${{steps.repo3.outputs.forkList}}
+          echo emptyList: ${{steps.repo.outputs.emptyList}}

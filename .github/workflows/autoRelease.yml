@@ -1,7 +1,11 @@
 name: autoRelease
 
 on:
-  push:
+  workflow_run:
+    workflows: ['test']
+    branches: [main]
+    types:
+      - completed
 
 jobs:
   run:

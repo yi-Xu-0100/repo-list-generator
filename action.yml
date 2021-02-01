@@ -13,13 +13,6 @@ inputs:
       It can be user or organization.
     required: false
     default: ${{ github.actor }}
-  maxPage:
-    description: >
-      Deprecated!
-      Set up maxPage for request to generate repository list.
-      Default 100 repository per page can be fetched.
-    required: false
-    default: 10
   max_page:
     description: >
       Set up maxPage for request to generate repository list.

@@ -14578,19 +14578,13 @@ async function run() {
     startGroup('Get input value');
     const user = getInput('user');
     info(`[INFO]: user: ${user}`);
-    const maxPage = getInput('maxPage');
-    info(`[INFO]: maxPage: ${maxPage}`);
-    var max_page = getInput('max_page');
+    const max_page = getInput('max_page');
     info(`[INFO]: max_page: ${max_page}`);
-    warning('[WARNING]: maxPage will change to max_page in v1.0.0!');
-    warning('[WARNING]: Now the page number will be set in bigger one!');
-    if (max_page < maxPage) max_page = maxPage;
-    info(`[INFO]: max_page_bigger: ${max_page}`);
     const block_list = getInput('block_list')
       .split(',')
       .map(item => item.split(`/`).pop());
     info(`[INFO]: block_list: ${block_list}`);
-    var allow_empty = getInput('allow_empty').toUpperCase() === 'TRUE' ? true : false;
+    const allow_empty = getInput('allow_empty').toUpperCase() === 'TRUE' ? true : false;
     info(`[INFO]: allow_empty: ${allow_empty}`);
     info(`[INFO]: isDebug: ${isDebug()}`);
     if (!existsSync(repo_list_cache) && isDebug()) await mkdirP(repo_list_cache);

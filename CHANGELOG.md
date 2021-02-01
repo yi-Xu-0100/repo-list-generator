@@ -9,6 +9,16 @@ The emoji used in the `GitHub` commit message is based on [gitmoji](https://gitm
 
 ## [Unreleased]
 
+### ✨ Added
+
+- ✨ add `allow_empty` support, default exclude the empty repo in repo list.
+- ✨ add `emptyList` output.
+
+### ♻️ Changed
+
+- 📝 add descriptions for repo list output in logs.
+- 🔥 Delete `maxPage` input.
+
 ## [0.4.1] - 2020-11-09
 
 ### ♻️ Changed
