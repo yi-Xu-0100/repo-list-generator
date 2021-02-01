@@ -4,11 +4,10 @@
   "description": "Generate repo list for user or organization.",
   "main": "dist/index.js",
   "scripts": {
-    "lint-check": "prettier --check **/*.{js,yml,json,md} && eslint .",
-    "format": "prettier --write **/*.{js,yml,json,md} && eslint .",
+    "lint-check": "prettier --check **/*.{js,yml,yaml,json,md} && eslint .",
+    "format": "prettier --write **/*.{js,yml,yaml,json,md} && eslint .",
     "clean": "rimraf -rf dist/* .repo_list/",
-    "prebuild": "npm run clean",
-    "build": "ncc build src/index.js --source-map --license license.txt",
+    "build": "npm run clean && ncc build src/index.js --source-map --license license.txt",
     "test": "npm run build && node --require dotenv/config dist/index.js"
   },
   "husky": {
@@ -22,7 +21,7 @@
       "git add",
       "eslint"
     ],
-    "**/*.{md,json,yml}": [
+    "**/*.{md,json,yaml,yml}": [
       "prettier --write",
       "git add"
     ]

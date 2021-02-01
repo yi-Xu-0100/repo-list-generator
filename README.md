@@ -1,4 +1,4 @@
-## ⚡️ Repo List Generator GitHub Action
+# ⚡️ Repo List Generator GitHub Action
 
 [![sync2gitee(list)](<https://github.com/yi-Xu-0100/hub-mirror/workflows/sync2gitee(list)/badge.svg>)](https://github.com/yi-Xu-0100/hub-mirror)
 [![test](https://github.com/yi-Xu-0100/repo-list-generator/workflows/test/badge.svg)](https://github.com/yi-Xu-0100/repo-list-generator/actions?query=workflow%3Atest)
@@ -12,7 +12,6 @@ The GitHub action that generate repo list for user or organization.
 
 ## 🎨 Table of Contents
 
-- [⚡️ Repo List Generator GitHub Action](#️-repo-list-generator-github-action)
 - [🎨 Table of Contents](#-table-of-contents)
 - [🚀 Configuration](#-configuration)
 - [📝 Default example](#-default-example)
