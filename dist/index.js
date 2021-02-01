@@ -14727,27 +14727,27 @@ let getList = async function (repo_list, block_list, allowEmpty = false) {
   setOutput('emptyList', emptyList.toString());
 
   var repoList = unzip(reject(repos, item => item[1] || item[2]))[0] || [];
-  if (!allowEmpty) repoList.filter(item => emptyList.includes(item));
+  if (!allowEmpty) repoList = reject(repoList, item => emptyList.includes(item));
   setOutput('repoList', repoList.toString());
 
   var repoList_ALL = unzip(repos)[0] || [];
-  if (!allowEmpty) repoList_ALL.filter(item => emptyList.includes(item));
+  if (!allowEmpty) repoList_ALL = reject(repoList_ALL, item => emptyList.includes(item));
   setOutput('repoList_ALL', repoList_ALL.toString());
 
   var repoList_PRIVATE = unzip(reject(repos, item => item[2]))[0] || [];
-  if (!allowEmpty) repoList_PRIVATE.filter(item => emptyList.includes(item));
+  if (!allowEmpty) repoList_PRIVATE = reject(repoList_PRIVATE, item => emptyList.includes(item));
   setOutput('repoList_PRIVATE', repoList_PRIVATE.toString());
 
   var repoList_FORK = unzip(reject(repos, item => item[1]))[0] || [];
-  if (!allowEmpty) repoList_FORK.filter(item => emptyList.includes(item));
+  if (!allowEmpty) repoList_FORK = reject(repoList_FORK, item => emptyList.includes(item));
   setOutput('repoList_FORK', repoList_FORK.toString());
 
   var privateList = unzip(reject(repos, item => !item[1]))[0] || [];
-  if (!allowEmpty) privateList.filter(item => emptyList.includes(item));
+  if (!allowEmpty) privateList = reject(privateList, item => emptyList.includes(item));
   setOutput('privateList', privateList.toString());
 
   var forkList = unzip(reject(repos, item => !item[2]))[0] || [];
-  if (!allowEmpty) forkList.filter(item => emptyList.includes(item));
+  if (!allowEmpty) forkList = reject(forkList, item => emptyList.includes(item));
   setOutput('forkList', forkList.toString());
 
   setOutput('repo', context.repo.repo);
