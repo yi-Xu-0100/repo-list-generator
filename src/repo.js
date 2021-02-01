@@ -1,11 +1,19 @@
 const { context, getOctokit } = require('@actions/github');
-const { debug, info, getInput, setOutput, isDebug } = require('@actions/core');
+const {
+  debug,
+  info,
+  getInput,
+  setOutput,
+  isDebug,
+  startGroup,
+  endGroup
+} = require('@actions/core');
 const { pluck, zip, unzip, reject } = require('underscore');
 const { join } = require('path');
 const { writeFileSync } = require('fs');
 
 let getAll = async function (user, page = 10) {
-  var my_token = getInput('my_token', { require: false });
+  var my_token = getInput('my_token');
   var octokit = new getOctokit(my_token);
   try {
     var listFunction = octokit.repos.listForAuthenticatedUser;
@@ -50,39 +58,26 @@ let getList = async function (repo_list, block_list) {
   repos = reject(repos, item => block_list.includes(item[0]));
 
   const repoList = unzip(reject(repos, item => item[1] || item[2]))[0] || '';
-  debug(`repoList[${repoList.length}]: ${repoList.toString()}`);
   setOutput('repoList', repoList.toString());
 
   const repoList_ALL = unzip(repos)[0] || '';
-  debug(`repoList_ALL[${repoList_ALL.length}]: ${repoList_ALL.toString()}`);
   setOutput('repoList_ALL', repoList_ALL.toString());
 
   const repoList_PRIVATE = unzip(reject(repos, item => item[2]))[0] || '';
-  debug(`repoList_PRIVATE[${repoList_PRIVATE.length}]: ${repoList_PRIVATE.toString()}`);
   setOutput('repoList_PRIVATE', repoList_PRIVATE.toString());
 
   const repoList_FORK = unzip(reject(repos, item => item[1]))[0] || '';
-  debug(`repoList_FORK[${repoList_FORK.length}]: ${repoList_FORK.toString()}`);
   setOutput('repoList_FORK', repoList_FORK.toString());
 
   const privateList = unzip(reject(repos, item => !item[1]))[0] || '';
-  debug(`privateList[${privateList.length}]: ${privateList.toString()}`);
   setOutput('privateList', privateList.toString());
 
   const forkList = unzip(reject(repos, item => !item[2]))[0] || '';
-  debug(`forkList[${forkList.length}]: ${forkList.toString()}`);
   setOutput('forkList', forkList.toString());
 
   setOutput('repo', context.repo.repo);
-  info(`[INFO]: repo: ${context.repo.repo}`);
-  info(`[INFO]: repoList: ${repoList.length}`);
-  info(`[INFO]: repoList_ALL: ${repoList_ALL.length}`);
-  info(`[INFO]: repoList_PRIVATE: ${repoList_PRIVATE.length}`);
-  info(`[INFO]: repoList_FORK: ${repoList_FORK.length}`);
-  info(`[INFO]: privateList: ${privateList.length}`);
-  info(`[INFO]: forkList: ${forkList.length}`);
-  info(`[INFO]: block_list: ${block_list}`);
   return {
+    repo: context.repo.repo,
     repoList: repoList,
     repoList_ALL: repoList_ALL,
     repoList_PRIVATE: repoList_PRIVATE,
@@ -93,4 +88,45 @@ let getList = async function (repo_list, block_list) {
   };
 };
 
-module.exports = { getAll, getList };
+let printList = async function (repo_name) {
+  startGroup(`repo: ${repo_name.repo}`);
+  info('[INFO]: repo: The current repository.');
+  info(`[INFO]: repo: ${repo_name.repo}`);
+  endGroup();
+  startGroup(`repoList: ${repo_name.repoList.length}`);
+  info('[INFO]: repoList: Repository list exclude private and fork.');
+  info('[INFO]: repoList: Public(source without private) and no fork.');
+  info(`[INFO]: repoList: ${repo_name.repoList.toString()}`);
+  endGroup();
+  startGroup(`repoList_ALL: ${repo_name.repoList_ALL.length}`);
+  info('[INFO]: repoList_ALL: Repository list include private and fork.');
+  info('[INFO]: repoList_ALL: Source(public and private) and fork.');
+  info(`[INFO]: repoList_ALL: ${repo_name.repoList_ALL.toString()}`);
+  endGroup();
+  startGroup(`repoList_PRIVATE: ${repo_name.repoList_PRIVATE.length}`);
+  info('[INFO]: repoList_PRIVATE: Repository list include private.');
+  info('[INFO]: repoList_PRIVATE: Source(public and private) and no fork.');
+  info(`[INFO]: repoList_PRIVATE: ${repo_name.repoList_PRIVATE.toString()}`);
+  endGroup();
+  startGroup(`repoList_FORK: ${repo_name.repoList_FORK.length}`);
+  info('[INFO]: repoList_FORK: Repository list include fork.');
+  info('[INFO]: repoList_FORK: Public(source without private) and fork.');
+  info(`[INFO]: repoList_FORK: ${repo_name.repoList_FORK.toString()}`);
+  endGroup();
+  startGroup(`privateList: ${repo_name.privateList.length}`);
+  info('[INFO]: privateList: Private repository list.');
+  info('[INFO]: privateList: Only private(fork can not be private).');
+  info(`[INFO]: privateList: ${repo_name.privateList.toString()}`);
+  endGroup();
+  startGroup(`forkList: ${repo_name.forkList.length}`);
+  info('[INFO]: forkList: Fork repository list.');
+  info('[INFO]: forkList: Only fork(private can not be fork).');
+  info(`[INFO]: forkList: ${repo_name.forkList.toString()}`);
+  endGroup();
+  startGroup(`block_list: ${repo_name.block_list.length}`);
+  info('[INFO]: block_list: Repository list that will exclude in each list.');
+  info(`[INFO]: block_list: ${repo_name.block_list.toString()}`);
+  endGroup();
+};
+
+module.exports = { getAll, getList, printList };

@@ -11,53 +11,54 @@ const {
 const { mkdirP, rmRF } = require('@actions/io');
 const artifact = require('@actions/artifact');
 const { join } = require('path');
-const { getAll, getList } = require('./repo');
+const { getAll, getList, printList } = require('./repo');
 const { writeFileSync, existsSync } = require('fs');
 
 async function run() {
   info('[INFO]: Usage https://github.com/yi-Xu-0100/repo-list-generator#readme');
-  var repo_list_cache = '.repo_list';
+  const repo_list_cache = '.repo_list';
   debug(`repo_list_cache: ${repo_list_cache}`);
-  var repos_path = join(repo_list_cache, 'repo-list.json');
+  const repos_path = join(repo_list_cache, 'repo-list.json');
   debug(`repos_path: ${repos_path}`);
-  var list_path = join(repo_list_cache, 'repo-name.json');
+  const list_path = join(repo_list_cache, 'repo-name.json');
   debug(`list_path: ${list_path}`);
   try {
     startGroup('Get input value');
-    const user = getInput('user', { require: false });
+    const user = getInput('user');
     info(`[INFO]: user: ${user}`);
-    const maxPage = getInput('maxPage', { require: false });
+    const maxPage = getInput('maxPage');
     info(`[INFO]: maxPage: ${maxPage}`);
-    var max_page = getInput('max_page', { require: false });
+    var max_page = getInput('max_page');
     info(`[INFO]: max_page: ${max_page}`);
     warning('[WARNING]: maxPage will change to max_page in v1.0.0!');
     warning('[WARNING]: Now the page number will be set in bigger one!');
     if (max_page < maxPage) max_page = maxPage;
     info(`[INFO]: max_page_bigger: ${max_page}`);
-    const block_list = getInput('block_list', { require: false })
-      .split(`,`)
+    const block_list = getInput('block_list')
+      .split(',')
       .map(item => item.split(`/`).pop());
     info(`[INFO]: block_list: ${block_list}`);
     info(`[INFO]: isDebug: ${isDebug()}`);
-    if (!existsSync(repo_list_cache)) {
-      if (isDebug()) mkdirP(repo_list_cache);
-    } else {
-      if (isDebug()) throw Error(`The cache directory(${repo_list_cache}) is occupied!`);
-      else
-        warning(
-          `The cache directory(${repo_list_cache}) is occupied! ` +
-            '\n' +
-            'If debug option set to be true, it will be Error!'
-        );
-    }
+    if (!existsSync(repo_list_cache) && isDebug()) await mkdirP(repo_list_cache);
+    else if (existsSync(repo_list_cache) && isDebug())
+      throw Error(`The cache directory(${repo_list_cache}) is occupied!`);
+    else if (existsSync(repo_list_cache) && !isDebug())
+      warning(
+        `The cache directory(${repo_list_cache}) is occupied!\n` +
+          'If debug option set to be true, it will be Error!'
+      );
     endGroup();
 
     startGroup('Get repo list');
     var repo_list = await getAll(user, max_page);
     if (isDebug()) writeFileSync(repos_path, JSON.stringify(repo_list, null, 2), 'utf-8');
     var repo_name = await getList(repo_list, block_list);
-    if (isDebug()) writeFileSync(list_path, JSON.stringify(repo_name, null, 2), 'utf-8');
     endGroup();
+
+    info('[INFO]: Print repo list');
+    await printList(repo_name);
+
+    if (isDebug()) writeFileSync(list_path, JSON.stringify(repo_name, null, 2), 'utf-8');
     if (isDebug() && !process.env['LOCAL_DEBUG']) {
       startGroup('Upload repo list debug artifact');
       const artifactClient = artifact.create();

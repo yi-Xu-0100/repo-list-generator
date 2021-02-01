@@ -50,7 +50,7 @@ outputs:
   repoList_ALL:
     description: >
       Repository list include private and fork.
-      Source(public and private) and fork
+      Source(public and private) and fork.
   repoList_PRIVATE:
     description: >
       Repository list include private.
