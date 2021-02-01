@@ -9,6 +9,8 @@ The emoji used in the `GitHub` commit message is based on [gitmoji](https://gitm
 
 ## [Unreleased]
 
+## [1.0.0] - 2021-02-01
+
 ### ✨ Added
 
 - ✨ add `allow_empty` support, default exclude the empty repo in repo list.
@@ -94,8 +96,9 @@ The emoji used in the `GitHub` commit message is based on [gitmoji](https://gitm
 
 - 🎉 first publish.
 
-[unreleased]: https://github.com/yi-Xu-0100/repo-list-generator/compare/v0.4.1...HEAD
-[0.4.0]: https://github.com/yi-Xu-0100/repo-list-generator/tree/v0.4.1
+[unreleased]: https://github.com/yi-Xu-0100/repo-list-generator/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/yi-Xu-0100/repo-list-generator/tree/v1.0.0
+[0.4.1]: https://github.com/yi-Xu-0100/repo-list-generator/tree/v0.4.1
 [0.4.0]: https://github.com/yi-Xu-0100/repo-list-generator/tree/v0.4.0
 [0.3.0]: https://github.com/yi-Xu-0100/repo-list-generator/tree/v0.3.0
 [0.2.1]: https://github.com/yi-Xu-0100/repo-list-generator/tree/v0.2.1
