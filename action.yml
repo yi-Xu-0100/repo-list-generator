@@ -38,6 +38,11 @@ inputs:
       The repositories in block_list will exclude in repository list.
     required: false
     default: ''
+  allow_empty:
+    description: >
+      Set up whether allow empty repository for repoList.
+    required: false
+    default: false
 
 outputs:
   repo:
@@ -67,6 +72,10 @@ outputs:
     description: >
       Fork repository list.
       Only fork(private can not be fork).
+  emptyList:
+    description: >
+      Empty repository list.
+      Default exclude in each list.
 
 runs:
   using: 'node12'

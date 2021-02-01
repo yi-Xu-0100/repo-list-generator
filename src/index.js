@@ -38,6 +38,8 @@ async function run() {
       .split(',')
       .map(item => item.split(`/`).pop());
     info(`[INFO]: block_list: ${block_list}`);
+    var allow_empty = getInput('allow_empty').toUpperCase() === 'TRUE' ? true : false;
+    info(`[INFO]: allow_empty: ${allow_empty}`);
     info(`[INFO]: isDebug: ${isDebug()}`);
     if (!existsSync(repo_list_cache) && isDebug()) await mkdirP(repo_list_cache);
     else if (existsSync(repo_list_cache) && isDebug())
@@ -52,7 +54,7 @@ async function run() {
     startGroup('Get repo list');
     var repo_list = await getAll(user, max_page);
     if (isDebug()) writeFileSync(repos_path, JSON.stringify(repo_list, null, 2), 'utf-8');
-    var repo_name = await getList(repo_list, block_list);
+    var repo_name = await getList(repo_list, block_list, allow_empty);
     endGroup();
 
     info('[INFO]: Print repo list');
