@@ -9,6 +9,8 @@ The emoji used in the `GitHub` commit message is based on [gitmoji](https://gitm
 
 ## [Unreleased]
 
+## [1.0.1] - 2021-02-01
+
 ### ♻️ Changed
 
 - 📝 use the `${{ github.repository }}` as the default value of input `user`.
@@ -100,7 +102,8 @@ The emoji used in the `GitHub` commit message is based on [gitmoji](https://gitm
 
 - 🎉 first publish.
 
-[unreleased]: https://github.com/yi-Xu-0100/repo-list-generator/compare/v1.0.0...HEAD
+[unreleased]: https://github.com/yi-Xu-0100/repo-list-generator/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/yi-Xu-0100/repo-list-generator/tree/v1.0.1
 [1.0.0]: https://github.com/yi-Xu-0100/repo-list-generator/tree/v1.0.0
 [0.4.1]: https://github.com/yi-Xu-0100/repo-list-generator/tree/v0.4.1
 [0.4.0]: https://github.com/yi-Xu-0100/repo-list-generator/tree/v0.4.0
