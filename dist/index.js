@@ -14576,7 +14576,7 @@ async function run() {
   debug(`list_path: ${list_path}`);
   try {
     startGroup('Get input value');
-    const user = getInput('user');
+    const user = getInput('user').split(`/`).shift();
     info(`[INFO]: user: ${user}`);
     const max_page = getInput('max_page');
     info(`[INFO]: max_page: ${max_page}`);
@@ -14653,7 +14653,7 @@ const {
 const { pluck, zip, unzip, reject } = __nccwpck_require__(4987);
 const { join } = __nccwpck_require__(5622);
 const { writeFileSync } = __nccwpck_require__(5747);
-const _user = getInput('user');
+const _user = getInput('user').split(`/`).shift();
 const my_token = getInput('my_token');
 const octokit = new getOctokit(my_token);
 const asyncFilter = async (arr, predicate) =>

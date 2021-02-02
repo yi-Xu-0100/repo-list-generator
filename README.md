@@ -33,10 +33,11 @@ The GitHub action that generate repo list for user or organization.
 inputs:
   user:
     description: >
-      Set up the name to generate repository list.
+      Set up the user name to generate repository list.
       It can be user or organization.
+      The 'owner/repository' will transform to 'owner'.
     required: false
-    default: ${{ github.actor }}
+    default: ${{ github.repository }}
   max_page:
     description: >
       Set up maxPage for request to generate repository list.
@@ -102,10 +103,10 @@ outputs:
 ```yml
 - name: Get Repo List
   id: repo
-  uses: yi-Xu-0100/repo-list-generator@v1.0.0
+  uses: yi-Xu-0100/repo-list-generator@v1.0.1
   # with:
   # (default)my_token: ${{ secrets.GITHUB_TOKEN }}
-  # (default)user: ${{ github.actor }}
+  # (default)user: ${{ github.repository }}
   # (default)max_page: 10
   # (default)block_list:
   # (default)allow_empty: false
@@ -129,10 +130,10 @@ outputs:
 ```yml
 - name: Get Repo List
   id: repo
-  uses: yi-Xu-0100/repo-list-generator@v1.0.0
+  uses: yi-Xu-0100/repo-list-generator@v1.0.1
   with:
     my_token: ${{ secrets.REPO_TOKEN }}
-    # (default)user: ${{ github.actor }}
+    # (default)user: ${{ github.repository }}
     # (default)max_page: 10
     # (default)block_list:
     # (default)allow_empty: false

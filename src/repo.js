@@ -11,7 +11,7 @@ const {
 const { pluck, zip, unzip, reject } = require('underscore');
 const { join } = require('path');
 const { writeFileSync } = require('fs');
-const _user = getInput('user');
+const _user = getInput('user').split(`/`).shift();
 const my_token = getInput('my_token');
 const octokit = new getOctokit(my_token);
 const asyncFilter = async (arr, predicate) =>

@@ -9,6 +9,10 @@ The emoji used in the `GitHub` commit message is based on [gitmoji](https://gitm
 
 ## [Unreleased]
 
+### ♻️ Changed
+
+- 📝 use the `${{ github.repository }}` as the default value of input `user`.
+
 ## [1.0.0] - 2021-02-01
 
 ### ✨ Added

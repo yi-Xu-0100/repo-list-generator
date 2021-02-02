@@ -9,10 +9,11 @@ branding:
 inputs:
   user:
     description: >
-      Set up the name to generate repository list.
+      Set up the user name to generate repository list.
       It can be user or organization.
+      The 'owner/repository' will transform to 'owner'.
     required: false
-    default: ${{ github.actor }}
+    default: ${{ github.repository }}
   max_page:
     description: >
       Set up maxPage for request to generate repository list.

@@ -24,7 +24,7 @@ async function run() {
   debug(`list_path: ${list_path}`);
   try {
     startGroup('Get input value');
-    const user = getInput('user');
+    const user = getInput('user').split(`/`).shift();
     info(`[INFO]: user: ${user}`);
     const max_page = getInput('max_page');
     info(`[INFO]: max_page: ${max_page}`);
