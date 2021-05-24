@@ -20,7 +20,7 @@ const asyncFilter = async (arr, predicate) =>
 let checkEmptyRepo = async function (name) {
   debug(`owner: ${_user}`);
   debug(`repo: ${name}`);
-  var resp = await octokit.repos.listBranches({
+  var resp = await octokit.rest.repos.listBranches({
     owner: _user,
     repo: name
   });
@@ -30,12 +30,12 @@ let checkEmptyRepo = async function (name) {
 
 let getAll = async function (user, page = 10) {
   try {
-    var listFunction = octokit.repos.listForAuthenticatedUser;
+    var listFunction = octokit.rest.repos.listForAuthenticatedUser;
     await listFunction();
   } catch (error) {
     if (error.message === 'Resource not accessible by integration') {
       info('[INFO]: This token can not used for listForAuthenticatedUser()');
-      listFunction = octokit.repos.listForUser;
+      listFunction = octokit.rest.repos.listForUser;
     } else {
       debug(`ERROR[listFunction]: ${error}`);
       throw error;
