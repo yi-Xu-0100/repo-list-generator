@@ -18,7 +18,7 @@ jobs:
       contains(github.event.pull_request.labels.*.name, 'wait-to-merge')
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
 
       - name: Get Repo List for user and GITHUB_TOKEN
         id: repo
