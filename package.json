@@ -39,7 +39,7 @@
     "@actions/core": "^1.6.0",
     "@actions/github": "^5.0.0",
     "@actions/io": "^1.1.1",
-    "underscore": "^1.13.1"
+    "underscore": "^1.13.2"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.33.0",
