@@ -37,7 +37,7 @@
   "dependencies": {
     "@actions/artifact": "^1.0.0",
     "@actions/core": "^1.6.0",
-    "@actions/github": "^5.0.0",
+    "@actions/github": "^5.0.1",
     "@actions/io": "^1.1.2",
     "underscore": "^1.13.2"
   },
