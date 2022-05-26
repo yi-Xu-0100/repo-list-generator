@@ -42,7 +42,7 @@
     "underscore": "^1.13.3"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.33.4",
+    "@vercel/ncc": "^0.34.0",
     "dotenv": "^11.0.0",
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.5.0",
