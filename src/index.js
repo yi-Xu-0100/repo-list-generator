@@ -34,6 +34,8 @@ async function run() {
     info(`[INFO]: block_list: ${block_list}`);
     const allow_empty = getInput('allow_empty').toUpperCase() === 'TRUE' ? true : false;
     info(`[INFO]: allow_empty: ${allow_empty}`);
+    const allow_archived = getInput('allow_archived').toUpperCase() === 'TRUE' ? true : false;
+    info(`[INFO]: allow_archived: ${allow_archived}`);
     info(`[INFO]: isDebug: ${isDebug()}`);
     if (!existsSync(repo_list_cache) && isDebug()) await mkdirP(repo_list_cache);
     else if (existsSync(repo_list_cache) && isDebug())
@@ -48,7 +50,7 @@ async function run() {
     startGroup('Get repo list');
     var repo_list = await getAll(user, max_page);
     if (isDebug()) writeFileSync(repos_path, JSON.stringify(repo_list, null, 2), 'utf-8');
-    var repo_name = await getList(repo_list, block_list, allow_empty);
+    var repo_name = await getList(repo_list, block_list, allow_empty, allow_archived);
     endGroup();
 
     info('[INFO]: Print repo list');

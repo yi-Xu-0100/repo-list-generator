@@ -8,7 +8,7 @@ const {
   startGroup,
   endGroup
 } = require('@actions/core');
-const { pluck, zip, unzip, reject } = require('underscore');
+const { pluck, zip, unzip, reject, filter } = require('underscore');
 const { join } = require('path');
 const { writeFileSync } = require('fs');
 const _user = getInput('user').split(`/`).shift();
@@ -62,44 +62,55 @@ let getAll = async function (user, page = 10) {
   var repo_list_private = pluck(repo_list, 'private');
   var repo_list_fork = pluck(repo_list, 'fork');
   var repo_list_size = pluck(repo_list, 'size');
+  var repo_list_archived = pluck(repo_list, 'archived');
   info('[INFO]: Successfully get repo data');
-  return { repo_list: zip(repo_list_name, repo_list_private, repo_list_fork, repo_list_size) };
+  return { repo_list: zip(repo_list_name, repo_list_private, repo_list_fork, repo_list_archived, repo_list_size) };
 };
 
-let getList = async function (repo_list, block_list, allowEmpty = false) {
+let getList = async function (repo_list, block_list, allowEmpty = false, allowArchived = true) {
   debug('repo_list:');
   debug(JSON.stringify(repo_list));
   var repos = repo_list.repo_list;
   repos = reject(repos, item => block_list.includes(item[0]));
 
-  var _emptyList = unzip(reject(repos, item => item[3] > 0))[0] || [];
+  var _emptyList = unzip(reject(repos, item => item[4] > 0))[0] || [];
   debug(`_emptyList[${_emptyList.length}]: ${_emptyList.toString()}`);
   if (_emptyList) var emptyList = await asyncFilter(_emptyList, checkEmptyRepo);
   debug(`emptyList[${emptyList.length}]: ${emptyList.toString()}`);
   setOutput('emptyList', emptyList.toString());
 
+  var archivedList = unzip(filter(repos, item => item[3]))[0] || [];
+  debug(`archivedList[${archivedList.length}]: ${archivedList.toString()}`);
+  setOutput('archivedList', archivedList.toString());
+
   var repoList = unzip(reject(repos, item => item[1] || item[2]))[0] || [];
   if (!allowEmpty) repoList = reject(repoList, item => emptyList.includes(item));
+  if (!allowArchived) repoList = reject(repoList, item => archivedList.includes(item));
   setOutput('repoList', repoList.toString());
 
   var repoList_ALL = unzip(repos)[0] || [];
   if (!allowEmpty) repoList_ALL = reject(repoList_ALL, item => emptyList.includes(item));
+  if (!allowArchived) repoList_ALL = reject(repoList_ALL, item => archivedList.includes(item));
   setOutput('repoList_ALL', repoList_ALL.toString());
 
   var repoList_PRIVATE = unzip(reject(repos, item => item[2]))[0] || [];
   if (!allowEmpty) repoList_PRIVATE = reject(repoList_PRIVATE, item => emptyList.includes(item));
+  if (!allowArchived) repoList_PRIVATE = reject(repoList_PRIVATE, item => archivedList.includes(item));
   setOutput('repoList_PRIVATE', repoList_PRIVATE.toString());
 
   var repoList_FORK = unzip(reject(repos, item => item[1]))[0] || [];
   if (!allowEmpty) repoList_FORK = reject(repoList_FORK, item => emptyList.includes(item));
+  if (!allowArchived) repoList_FORK = reject(repoList_FORK, item => archivedList.includes(item));
   setOutput('repoList_FORK', repoList_FORK.toString());
 
   var privateList = unzip(reject(repos, item => !item[1]))[0] || [];
   if (!allowEmpty) privateList = reject(privateList, item => emptyList.includes(item));
+  if (!allowArchived) privateList = reject(privateList, item => archivedList.includes(item));
   setOutput('privateList', privateList.toString());
 
   var forkList = unzip(reject(repos, item => !item[2]))[0] || [];
   if (!allowEmpty) forkList = reject(forkList, item => emptyList.includes(item));
+  if (!allowArchived) forkList = reject(repoList, item => archivedList.includes(item));
   setOutput('forkList', forkList.toString());
 
   setOutput('repo', context.repo.repo);
@@ -112,7 +123,8 @@ let getList = async function (repo_list, block_list, allowEmpty = false) {
     privateList: privateList,
     forkList: forkList,
     block_list: block_list,
-    empty_list: emptyList
+    empty_list: emptyList,
+    archived_list: archivedList
   };
 };
 
@@ -155,6 +167,11 @@ let printList = async function (repo_name) {
   info('[INFO]: empty_list: Empty repository list.');
   info('[INFO]: empty_list: Default exclude in each list.');
   info(`[INFO]: empty_list: ${repo_name.empty_list.toString()}`);
+  endGroup();
+  startGroup(`archived_list: ${repo_name.archived_list.length}`);
+  info('[INFO]: archived_list: Archived repository list.');
+  info('[INFO]: archived_list: Default exclude in each list.');
+  info(`[INFO]: archived_list: ${repo_name.archived_list.toString()}`);
   endGroup();
   startGroup(`block_list: ${repo_name.block_list.length}`);
   info('[INFO]: block_list: Repository list that will exclude in each list.');
