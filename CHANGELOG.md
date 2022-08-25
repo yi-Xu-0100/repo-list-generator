@@ -9,6 +9,14 @@ The emoji used in the `GitHub` commit message is based on [gitmoji](https://gitm
 
 ## [Unreleased]
 
+## [1.0.2] - 2022-08-25
+
+### ✨ Added
+
+- ✨ add `allow_archived` support, default include the archived repo in repo list.
+- ✨ add `archivedList` output.
+
+
 ## [1.0.1] - 2021-02-01
 
 ### ♻️ Changed

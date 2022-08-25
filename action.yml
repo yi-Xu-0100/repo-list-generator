@@ -37,6 +37,11 @@ inputs:
       Set up whether allow empty repository for repoList.
     required: false
     default: false
+  allow_archived:
+    description: >
+      Set up whether allow archived repository for repoList.
+    required: false
+    default: true
 
 outputs:
   repo:
@@ -70,6 +75,10 @@ outputs:
     description: >
       Empty repository list.
       Default exclude in each list.
+  archivedList:
+    description: >
+      Archived repository list.
+      Default include in each list.
 
 runs:
   using: 'node12'

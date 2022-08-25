@@ -46,6 +46,7 @@ jobs:
           echo privateList: ${{steps.repo.outputs.privateList}}
           echo forkList: ${{steps.repo.outputs.forkList}}
           echo emptyList: ${{steps.repo.outputs.emptyList}}
+          echo archivedList: ${{steps.repo.outputs.archivedList}}
 
       - name: Get Repo List for user and REPO_TOKEN
         id: repo1
@@ -64,6 +65,7 @@ jobs:
           echo privateList: ${{steps.repo1.outputs.privateList}}
           echo forkList: ${{steps.repo1.outputs.forkList}}
           echo emptyList: ${{steps.repo.outputs.emptyList}}
+          echo archivedList: ${{steps.repo.outputs.archivedList}}
 
       - name: Get Repo List for organization with GITHUB_TOKEN
         id: repo2
@@ -82,6 +84,7 @@ jobs:
           echo privateList: ${{steps.repo2.outputs.privateList}}
           echo forkList: ${{steps.repo2.outputs.forkList}}
           echo emptyList: ${{steps.repo.outputs.emptyList}}
+          echo archivedList: ${{steps.repo.outputs.archivedList}}
 
       - name: Get Repo List for organization and REPO_TOKEN
         id: repo3
@@ -101,3 +104,4 @@ jobs:
           echo privateList: ${{steps.repo3.outputs.privateList}}
           echo forkList: ${{steps.repo3.outputs.forkList}}
           echo emptyList: ${{steps.repo.outputs.emptyList}}
+          echo archivedList: ${{steps.repo.outputs.archivedList}}
