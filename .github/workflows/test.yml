@@ -18,6 +18,17 @@ jobs:
       contains(github.event.pull_request.labels.*.name, 'wait-to-merge')
     steps:
       - name: Checkout Code
+        if: >
+          ${{ github.event.event == 'pull_request' }} &&
+          contains(github.event.pull_request.labels.*.name, 'wait-to-merge')
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Checkout Code
+        if: >
+          ${{ github.event.event == 'push' }} ||
+          ${{ github.event.event == 'workflow_dispatch' }}
         uses: actions/checkout@v3
 
       - name: Get Repo List for user and GITHUB_TOKEN
