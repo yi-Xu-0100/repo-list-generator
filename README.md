@@ -61,6 +61,11 @@ inputs:
       Set up whether allow empty repository for repoList.
     required: false
     default: false
+  allow_archived:
+    description: >
+      Set up whether allow archived repository for repoList.
+    required: false
+    default: true
 
 outputs:
   repo:
@@ -94,6 +99,10 @@ outputs:
     description: >
       Empty repository list.
       Default exclude in each list.
+  archivedList:
+    description: >
+      Archived repository list.
+      Default include in each list.
 ```
 
 ## 📝 Default example
@@ -110,6 +119,7 @@ outputs:
   # (default)max_page: 10
   # (default)block_list:
   # (default)allow_empty: false
+  # (default)allow_archived: false
 
 - name: Echo Output
   run: |
@@ -121,6 +131,7 @@ outputs:
     echo privateList: ${{steps.repo.outputs.privateList}}
     echo forkList: ${{steps.repo.outputs.forkList}}
     echo emptyList: ${{steps.repo.outputs.emptyList}}
+    echo archivedList: ${{steps.repo.outputs.emptyList}}
 ```
 
 ## 📝 Example for get private repository
@@ -137,6 +148,7 @@ outputs:
     # (default)max_page: 10
     # (default)block_list:
     # (default)allow_empty: false
+    # (default)allow_archived: false
 
 - name: Echo Output
   run: |
@@ -148,6 +160,7 @@ outputs:
     echo privateList: ${{steps.repo.outputs.privateList}}
     echo forkList: ${{steps.repo.outputs.forkList}}
     echo emptyList: ${{steps.repo.outputs.emptyList}}
+    echo archivedList: ${{steps.repo.outputs.emptyList}}
 ```
 
 ## 🚀 More Related Usage
