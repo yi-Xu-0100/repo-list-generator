@@ -4,6 +4,7 @@ const {
   startGroup,
   endGroup,
   getInput,
+  getBooleanInput,
   setFailed,
   warning,
   isDebug
@@ -32,9 +33,9 @@ async function run() {
       .split(',')
       .map(item => item.split(`/`).pop());
     info(`[INFO]: block_list: ${block_list}`);
-    const allow_empty = getInput('allow_empty').toUpperCase() === 'TRUE' ? true : false;
+    const allow_empty = getBooleanInput('allow_empty');
     info(`[INFO]: allow_empty: ${allow_empty}`);
-    const allow_archived = getInput('allow_archived').toUpperCase() === 'TRUE' ? true : false;
+    const allow_archived = getBooleanInput('allow_archived');
     info(`[INFO]: allow_archived: ${allow_archived}`);
     info(`[INFO]: isDebug: ${isDebug()}`);
     if (!existsSync(repo_list_cache) && isDebug()) await mkdirP(repo_list_cache);

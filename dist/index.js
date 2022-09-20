@@ -16722,7 +16722,15 @@ let getAll = async function (user, page = 10) {
   var repo_list_size = pluck(repo_list, 'size');
   var repo_list_archived = pluck(repo_list, 'archived');
   info('[INFO]: Successfully get repo data');
-  return { repo_list: zip(repo_list_name, repo_list_private, repo_list_fork, repo_list_archived, repo_list_size) };
+  return {
+    repo_list: zip(
+      repo_list_name,
+      repo_list_private,
+      repo_list_fork,
+      repo_list_archived,
+      repo_list_size
+    )
+  };
 };
 
 let getList = async function (repo_list, block_list, allowEmpty = false, allowArchived = true) {
@@ -16753,7 +16761,8 @@ let getList = async function (repo_list, block_list, allowEmpty = false, allowAr
 
   var repoList_PRIVATE = unzip(reject(repos, item => item[2]))[0] || [];
   if (!allowEmpty) repoList_PRIVATE = reject(repoList_PRIVATE, item => emptyList.includes(item));
-  if (!allowArchived) repoList_PRIVATE = reject(repoList_PRIVATE, item => archivedList.includes(item));
+  if (!allowArchived)
+    repoList_PRIVATE = reject(repoList_PRIVATE, item => archivedList.includes(item));
   setOutput('repoList_PRIVATE', repoList_PRIVATE.toString());
 
   var repoList_FORK = unzip(reject(repos, item => item[1]))[0] || [];
@@ -19224,6 +19233,7 @@ const {
   startGroup,
   endGroup,
   getInput,
+  getBooleanInput,
   setFailed,
   warning,
   isDebug
@@ -19252,9 +19262,9 @@ async function run() {
       .split(',')
       .map(item => item.split(`/`).pop());
     info(`[INFO]: block_list: ${block_list}`);
-    const allow_empty = getInput('allow_empty').toUpperCase() === 'TRUE' ? true : false;
+    const allow_empty = getBooleanInput('allow_empty');
     info(`[INFO]: allow_empty: ${allow_empty}`);
-    const allow_archived = getInput('allow_archived').toUpperCase() === 'TRUE' ? true : false;
+    const allow_archived = getBooleanInput('allow_archived');
     info(`[INFO]: allow_archived: ${allow_archived}`);
     info(`[INFO]: isDebug: ${isDebug()}`);
     if (!existsSync(repo_list_cache) && isDebug()) await mkdirP(repo_list_cache);
