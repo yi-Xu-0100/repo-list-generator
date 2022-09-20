@@ -119,7 +119,7 @@ outputs:
   # (default)max_page: 10
   # (default)block_list:
   # (default)allow_empty: false
-  # (default)allow_archived: false
+  # (default)allow_archived: true
 
 - name: Echo Output
   run: |
@@ -148,7 +148,7 @@ outputs:
     # (default)max_page: 10
     # (default)block_list:
     # (default)allow_empty: false
-    # (default)allow_archived: false
+    # (default)allow_archived: true
 
 - name: Echo Output
   run: |
