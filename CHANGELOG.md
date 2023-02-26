@@ -9,6 +9,14 @@ The emoji used in the `GitHub` commit message is based on [gitmoji](https://gitm
 
 ## [Unreleased]
 
+## [1.1.1] - 2023-02-26
+
+### ♻️ Changed
+
+- 🐛 update README version.
+- ⬆️ use nodejs16 in action.
+- 💚 update `set-output` commands.
+
 ## [1.1.0] - 2022-08-25
 
 ### ✨ Added
@@ -109,7 +117,9 @@ The emoji used in the `GitHub` commit message is based on [gitmoji](https://gitm
 
 - 🎉 first publish.
 
-[unreleased]: https://github.com/yi-Xu-0100/repo-list-generator/compare/v1.0.1...HEAD
+[unreleased]: https://github.com/yi-Xu-0100/repo-list-generator/compare/v1.1.0...HEAD
+[1.1.1]: https://github.com/yi-Xu-0100/repo-list-generator/tree/v1.1.1
+[1.1.0]: https://github.com/yi-Xu-0100/repo-list-generator/tree/v1.1.0
 [1.0.1]: https://github.com/yi-Xu-0100/repo-list-generator/tree/v1.0.1
 [1.0.0]: https://github.com/yi-Xu-0100/repo-list-generator/tree/v1.0.0
 [0.4.1]: https://github.com/yi-Xu-0100/repo-list-generator/tree/v0.4.1

@@ -1,6 +1,6 @@
 {
   "name": "repo-list-generator",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Generate repo list for user or organization.",
   "main": "dist/index.js",
   "scripts": {
