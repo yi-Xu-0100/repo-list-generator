@@ -112,7 +112,7 @@ outputs:
 ```yml
 - name: Get Repo List
   id: repo
-  uses: yi-Xu-0100/repo-list-generator@v1.0.1
+  uses: yi-Xu-0100/repo-list-generator@v1.1.1
   # with:
   # (default)my_token: ${{ secrets.GITHUB_TOKEN }}
   # (default)user: ${{ github.repository }}
@@ -141,7 +141,7 @@ outputs:
 ```yml
 - name: Get Repo List
   id: repo
-  uses: yi-Xu-0100/repo-list-generator@v1.0.1
+  uses: yi-Xu-0100/repo-list-generator@v1.1.1
   with:
     my_token: ${{ secrets.REPO_TOKEN }}
     # (default)user: ${{ github.repository }}
