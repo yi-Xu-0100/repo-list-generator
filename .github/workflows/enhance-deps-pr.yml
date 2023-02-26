@@ -31,9 +31,9 @@ jobs:
           echo "${{ github.event.pull_request.title }}" | \
           sed -e "s/^chore.*: \(.*\)/\1/" | \
           sed -e "s/^/chore(deps): ⬆️ /" | \
-          xargs echo "{title}={$1}" >> $GITHUB_OUTPUT
+          xargs -I% echo "{title}={%}" >> $GITHUB_OUTPUT
           git log --pretty=format:"%b" -1 | \
-          xargs echo "{body}={$1}" >> $GITHUB_OUTPUT
+          xargs -I% echo "{body}={%}" >> $GITHUB_OUTPUT
 
       - name: Enhance PR title
         env:
